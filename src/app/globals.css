@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.customAnimation {
+  animation: customAnimationKeyframes 200ms ease-in-out;
+}
+@-webkit-keyframes customAnimationKeyframes {
+  0% {
+    transform: scale(0.1);
+  }
+  100% {
+    transform: scale(2);
+  }
+}

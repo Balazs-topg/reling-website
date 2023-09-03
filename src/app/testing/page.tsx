@@ -5,47 +5,10 @@ import useWindowSize from "@/utils/useWindowSize";
 
 import Link from "next/link";
 
-function MappedMobile({ list }) {
-  return list.map((item) =>
-    item.dropDown ? (
-      <li
-        key={0}
-        className="flex mx-auto w-fit items-center gap-1 select-none cursor-pointer active:scale-95 transition-transform"
-      >
-        {item.title}
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={2}
-          stroke="currentColor"
-          className="w-6 h-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-          />
-        </svg>
-      </li>
-    ) : (
-      <li
-        key={0}
-        className="flex mx-auto w-fit items-center gap-1 select-none cursor-pointer active:scale-95 transition-transform"
-      >
-        {item.title}
-      </li>
-    )
-  );
-}
-
 function HeaderNav() {
   const navigationItems = [
-    {
-      title: "Relining avlopp",
-      dropDown: ["first item", "second item", "third item"],
-    },
-    { title: "Om oss", dropDown: ["bruh"] },
+    { title: "Relining avlopp", dropDown: [] },
+    { title: "Om oss", dropDown: [] },
     { title: "Karrär" },
     { title: "Kontakt" },
   ];
@@ -64,59 +27,6 @@ function HeaderNav() {
     >
       Relining <span className="text-rose-500">Exellent</span>
     </Link>
-  );
-
-  const mappedDesktop = navigationItems.map((item) =>
-    item.dropDown ? (
-      <li key={0}>
-        <div className="dropdown dropdown-hover dropdown-bottom">
-          <div className="font-medium flex justify-center gap-1 select-none cursor-pointer active:scale-95 transition-transform hover:bg-white p-1 px-4 rounded-full ">
-            {item.title}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-              />
-            </svg>
-          </div>
-
-          <ul
-            tabIndex={0}
-            className="dropdown-content z-[1] p-2 bg-slate-100 rounded-box w-52 flex flex-col"
-          >
-            {item.dropDown.map((user) => (
-              <Link
-                tabIndex={0}
-                href=""
-                key={0}
-                className="hover:bg-white rounded-lg py-1 px-3 active:scale-95 transition-all"
-              >
-                {user}
-              </Link>
-            ))}
-
-            {/* item.dropDown.map((dropDownItem) => {
-              <li>{dropDownItem}</li>;
-            })*/}
-          </ul>
-        </div>
-      </li>
-    ) : (
-      <li
-        key={0}
-        className="text-base font-medium flex justify-center gap-1 select-none cursor-pointer active:scale-95 transition-transform hover:bg-white p-1 px-4 rounded-full"
-      >
-        {item.title}
-      </li>
-    )
   );
 
   const [mobileMenueIsOpen, setMobileMenueIsOpen] = useState(false);
@@ -147,12 +57,35 @@ function HeaderNav() {
       <nav className="bg-slate-100 p-4 fixed top-0 z-40 bg-opacity-95 backdrop-blur-lg w-full border-b border-white">
         <div className="hidden lg:flex container mx-auto justify-between items-center ">
           {leftSide}
-          <ol className="flex gap-1">{mappedDesktop} </ol>
+          <ol className="flex gap-5">
+            {navigationItems.map((item) => (
+              <li
+                key={0}
+                className="text-base font-medium flex justify-center gap-1 select-none cursor-pointer active:scale-95 transition-transform"
+              >
+                {item.title}
+                {item.dropDown ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                    />
+                  </svg>
+                ) : null}
+              </li>
+            ))}
+          </ol>
           {rightSide}
         </div>
-
         {/* mobile */}
-
         <div className="lg:hidden">
           <div className="flex container mx-auto justify-between items-center ">
             <div className="font-semibold text-2xl">{leftSide} </div>
@@ -197,15 +130,35 @@ function HeaderNav() {
           }
         >
           <ol className="py-4 flex flex-col gap-4">
-            <MappedMobile list={navigationItems}> </MappedMobile>
+            {navigationItems.map((item) => (
+              <li
+                key={0}
+                className="flex mx-auto w-fit items-center gap-1 select-none cursor-pointer active:scale-95 transition-transform"
+              >
+                {item.title}
+                {item.dropDown ? (
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+                    />
+                  </svg>
+                ) : null}
+              </li>
+            ))}
             <div className="mx-auto">{rightSide}</div>
           </ol>
         </div>
       </nav>
       <div
-        onClick={() => {
-          setMobileMenueIsOpen(false);
-        }}
         className={
           backgroundIsShowing
             ? "fixed top-0 left-0 z-30 w-full h-screen"

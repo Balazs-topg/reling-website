@@ -2,7 +2,7 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer className="relative z-10 p-12 bg-slate-800 text-white">
+    <footer className="relative z-10 py-12 px-6 bg-slate-800 text-white">
       <div className="mx-auto max-w-5xl flex flex-wrap gap-4">
         <div className="flex-1">
           <h6 className="text-center bg-slate-600 p-1">kontakt info</h6>
@@ -13,7 +13,7 @@ function Footer() {
                 <td>eifjife@feji.com</td>
               </tr>
               <tr>
-                <td>telefonnummer:</td>
+                <td>telefon:</td>
                 <td>073 123123123</td>
               </tr>
               <tr>
@@ -32,7 +32,7 @@ function Footer() {
                 <td>eifjife@feji.com</td>
               </tr>
               <tr>
-                <td>telefonnummer:</td>
+                <td>telefon:</td>
                 <td>073 123123123</td>
               </tr>
               <tr>

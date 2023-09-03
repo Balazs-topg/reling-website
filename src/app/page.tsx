@@ -1,10 +1,18 @@
-import Footer from "@/components/Footer";
+"use client";
+
+import { useRef } from "react";
+
 import HeaderNav from "@/components/HeaderNav";
+import Footer from "@/components/Footer";
+
+import { motion, useAnimation } from "framer-motion";
+import { inView } from "framer-motion";
+import { useInView } from "framer-motion";
 
 import Image from "next/image";
-import unDrawMain from "./undraw_wash_hands_nwl2.svg";
-import unDrawCompare from "./undraw_split_testing_l1uw.svg";
-import unDrawFaq from "./undraw_faq_re_31cw.svg";
+import unDrawMain from "../img/undraw_wash_hands_nwl2.svg";
+import unDrawCompare from "../img/undraw_split_testing_l1uw.svg";
+import unDrawFaq from "../img/undraw_faq_re_31cw.svg";
 
 function TableYes({ text }) {
   return (
@@ -15,7 +23,7 @@ function TableYes({ text }) {
         viewBox="0 0 24 24"
         strokeWidth={3}
         stroke="green"
-        className="w-6 h-6"
+        className="w-6 h-6 shrink-0"
       >
         <path
           strokeLinecap="round"
@@ -37,7 +45,7 @@ function TableNo({ text }) {
         viewBox="0 0 24 24"
         strokeWidth={3}
         stroke="red"
-        className="w-6 h-6"
+        className="w-6 h-6 shrink-0"
       >
         <path
           strokeLinecap="round"
@@ -50,32 +58,116 @@ function TableNo({ text }) {
   );
 }
 
+function FaqItem({ fråga, svar }) {
+  return (
+    <div className="collapse collapse-plus bg-slate-700 rounded-none">
+      <input type="checkbox" className="peer" />
+      <div className="collapse-title text-xl font-medium peer-checked:bg-slate-800">
+        {fråga}
+      </div>
+      <div className="collapse-content peer-checked:bg-slate-800">
+        <p>{svar}</p>
+      </div>
+    </div>
+  );
+}
+
+function AnimateOnScroll({ children, direction }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  if (direction == "left")
+    return (
+      <div
+        ref={ref}
+        style={{
+          transform: isInView ? "none" : "translateX(-200px)",
+          opacity: isInView ? 1 : 0,
+          transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0ms",
+        }}
+      >
+        {children}
+      </div>
+    );
+  if (direction == "bottom")
+    return (
+      <div
+        ref={ref}
+        style={{
+          transform: isInView ? "none" : "translateY(200px)",
+          opacity: isInView ? 1 : 0,
+          transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0ms",
+        }}
+      >
+        {children}
+      </div>
+    );
+  if (direction == "right")
+    return (
+      <div
+        ref={ref}
+        style={{
+          transform: isInView ? "none" : "translateX(200px)",
+          opacity: isInView ? 1 : 0,
+          transition: "all 0.9s cubic-bezier(0.17, 0.55, 0.55, 1) 0ms",
+        }}
+      >
+        {children}
+      </div>
+    );
+}
+
 export default function Home() {
   return (
-    <>
+    <div className="w-full">
       <HeaderNav></HeaderNav>
-      <div className="container relative z-10 mx-auto h-[50rem] p-4">
+      <div className="container relative z-10 mx-auto h-[50rem] p-4 max-[350px]:scale-90">
         <div className="flex flex-col items-start justify-center h-full lg:w-3/5">
-          <h1 className="relative z-20 text-[3rem] sm:text-[4rem] font-serif font-bold">
+          <motion.h1
+            className="relative z-30 text-[3rem] sm:text-[4rem] font-serif font-bold"
+            initial={{ y: "100px", opacity: "0%" }}
+            animate={{ y: "0px", opacity: "100%" }}
+            transition={{ type: "spring", stiffness: 80, delay: 0 }}
+          >
             Ett bättre sätt att laga dagen. Välj Relining
-          </h1>
-          <h2 className="relative z-20 text-lg sm:text-[1.5rem] bg-white bg-opacity-50">
+          </motion.h1>
+          <motion.h2
+            className="relative z-20 text-lg sm:text-[1.5rem] bg-white bg-opacity-50"
+            initial={{ y: "100px", opacity: "0%" }}
+            animate={{ y: "0px", opacity: "100%" }}
+            transition={{ type: "spring", stiffness: 80, delay: 0.2 }}
+          >
             Relining är en kostnadseffektiv teknik för att reparera skadade rör
             utan grävning genom att infoga en ny lining inuti det befintliga
             röret. Detta förstärker röret, täpper till läckor och är
             miljövänligare än traditionella utbyten.
-          </h2>
+          </motion.h2>
           <div className="relative z-20 mt-5 flex gap-2">
-            <button className="bg-rose-500 text-base hover:opacity-80 transition-all text-white font-bold rounded-full px-8 py-3 border border-white">
-              Learn more
-            </button>
-            <button className="bg-rose-500 text-base hover:opacity-80 transition-all text-white font-bold rounded-full px-8 py-3 border border-white">
-              Boka
-            </button>
+            <motion.div
+              initial={{ y: "10px", opacity: "0%" }}
+              animate={{ y: "0px", opacity: "100%" }}
+              transition={{ type: "spring", stiffness: 80, delay: 0.4 }}
+            >
+              <button className="bg-rose-500 text-base hover:opacity-80 transition-all text-white font-bold rounded-full px-8 py-3 border border-white active:scale-95">
+                Learn more
+              </button>
+            </motion.div>
+            <motion.div
+              initial={{ y: "10px", opacity: "0%" }}
+              animate={{ y: "0px", opacity: "100%" }}
+              transition={{ type: "spring", stiffness: 80, delay: 0.45 }}
+            >
+              <button className="bg-rose-500 text-base hover:opacity-80 transition-all text-white font-bold rounded-full px-8 py-3 border border-white active:scale-95">
+                Boka
+              </button>
+            </motion.div>
           </div>
-          <div className="absolute z-10 bottom-0 w-full flex justify-center p-8 ">
+          <div className="absolute z-10 left-0 bottom-0 w-full flex justify-center p-8">
             <svg
-              className="w-8 h-8 animate-bounce "
+              onClick={() => {
+                window.scrollBy({ top: 500, behavior: "smooth" });
+              }}
+              className="w-8 h-8 animate-bounce cursor-pointer"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -99,26 +191,33 @@ export default function Home() {
           <div className="flex flex-wrap gap-4 w-full">
             <div className="flex-1">
               <h3 className="font-bold text-[3rem] font-serif">
-                The relining mission
+                <AnimateOnScroll direction="left">
+                  The relining mission
+                </AnimateOnScroll>
               </h3>
+
               <h4 className="text-[1.5rem]">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Corrupti nesciunt natus ipsum quo minus! Suscipit expedita vitae
-                fugiat error
+                <AnimateOnScroll direction="left">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Corrupti nesciunt natus ipsum quo minus! Suscipit expedita
+                  vitae fugiat error
+                </AnimateOnScroll>
               </h4>
             </div>
             <div className=" min-w-[14rem]" style={{ flex: "1 1 20%" }}>
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et vel
-              officia nulla accusamus ducimus numquam exercitationem obcaecati
-              sequi! Cumque a illo quidem atque aperiam in fugit laudantium
-              distinctio officiis tempore? Lorem ipsum dolor, sit amet
-              consectetur adipisicing elit. Quo fugit officiis mollitia sunt nam
-              ducimus dolore? Rem id, similique, molestias animi placeat vel
-              commodi illo veritatis, nam tempora nesciunt facere. Lorem ipsum
-              dolor sit amet consectetur adipisicing elit. In accusantium
-              tenetur dignissimos a ut deleniti aliquam! Suscipit, sint. Itaque
-              non unde excepturi, atque mollitia illo eveniet recusandae animi!
-              Iure, atque!
+              <AnimateOnScroll direction="bottom">
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et vel
+                officia nulla accusamus ducimus numquam exercitationem obcaecati
+                sequi! Cumque a illo quidem atque aperiam in fugit laudantium
+                distinctio officiis tempore? Lorem ipsum dolor, sit amet
+                consectetur adipisicing elit. Quo fugit officiis mollitia sunt
+                nam ducimus dolore? Rem id, similique, molestias animi placeat
+                vel commodi illo veritatis, nam tempora nesciunt facere. Lorem
+                ipsum dolor sit amet consectetur adipisicing elit. In
+                accusantium tenetur dignissimos a ut deleniti aliquam! Suscipit,
+                sint. Itaque non unde excepturi, atque mollitia illo eveniet
+                recusandae animi! Iure, atque!
+              </AnimateOnScroll>
             </div>
           </div>
         </div>
@@ -129,112 +228,116 @@ export default function Home() {
         </div>
 
         <h3 className="relative z-10 font-bold text-[3rem] font-serif text-center mx-auto bg-white bg-opacity-50 rounded-xl">
-          Relinig vs Stambyte
+          <AnimateOnScroll direction={"bottom"}>
+            Relinig vs Stambyte
+          </AnimateOnScroll>
         </h3>
         <div className="relative z-10 mx-auto max-w-3xl">
-          <div className="overflow-x-auto">
-            <table className="table mt-8 bg-white bg-opacity-50">
-              {/* head */}
-              <thead>
-                <tr>
-                  <th>Funktion</th>
-                  <th>Relinig</th>
-                  <th>Stambyte</th>
-                </tr>
-              </thead>
-              <tbody>
-                {/* row 1 */}
-                <tr>
-                  <td>Installationstid</td>
-                  <td>
-                    <TableYes text={"två mikrosekunder"}></TableYes>
-                  </td>
-                  <td>
-                    <TableNo text={"tre år"}></TableNo>
-                  </td>
-                </tr>
-                {/* row 2 */}
-                <tr>
-                  <td>Landskapsarkitektur</td>
-                  <td>
-                    <TableYes text={"bra typ"}></TableYes>
-                  </td>
-                  <td>
-                    <TableNo text={"kräver att man gräver typ"}></TableNo>
-                  </td>
-                </tr>
-                {/* row 3 */}
-                <tr>
-                  <td>Långvarighet</td>
-                  <td>
-                    <TableYes text={"bra typ"}></TableYes>
-                  </td>
-                  <td>
-                    <TableYes text={"också rätt bra typ"}></TableYes>
-                  </td>
-                </tr>
-                {/* row 1 */}
-                <tr>
-                  <td>Installationstid</td>
-                  <td>
-                    <TableYes text={"två mikrosekunder"}></TableYes>
-                  </td>
-                  <td>
-                    <TableNo text={"tre år"}></TableNo>
-                  </td>
-                </tr>
-                {/* row 2 */}
-                <tr>
-                  <td>Landskapsarkitektur</td>
-                  <td>
-                    <TableYes text={"bra typ"}></TableYes>
-                  </td>
-                  <td>
-                    <TableNo text={"kräver att man gräver typ"}></TableNo>
-                  </td>
-                </tr>
-                {/* row 3 */}
-                <tr>
-                  <td>Långvarighet</td>
-                  <td>
-                    <TableYes text={"bra typ"}></TableYes>
-                  </td>
-                  <td>
-                    <TableYes text={"också rätt bra typ"}></TableYes>
-                  </td>
-                </tr>
-                {/* row 1 */}
-                <tr>
-                  <td>Installationstid</td>
-                  <td>
-                    <TableYes text={"två mikrosekunder"}></TableYes>
-                  </td>
-                  <td>
-                    <TableNo text={"tre år"}></TableNo>
-                  </td>
-                </tr>
-                {/* row 2 */}
-                <tr>
-                  <td>Landskapsarkitektur</td>
-                  <td>
-                    <TableYes text={"bra typ"}></TableYes>
-                  </td>
-                  <td>
-                    <TableNo text={"kräver att man gräver typ"}></TableNo>
-                  </td>
-                </tr>
-                {/* row 3 */}
-                <tr>
-                  <td>Långvarighet</td>
-                  <td>
-                    <TableYes text={"bra typ"}></TableYes>
-                  </td>
-                  <td>
-                    <TableYes text={"också rätt bra typ"}></TableYes>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <div className="overflow-x-auto overflow-y-hidden">
+            <AnimateOnScroll direction={"bottom"}>
+              <table className="table mt-8 bg-white bg-opacity-50">
+                {/* head */}
+                <thead>
+                  <tr>
+                    <th>Funktion</th>
+                    <th>Relinig</th>
+                    <th>Stambyte</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {/* row 1 */}
+                  <tr>
+                    <td>Installationstid</td>
+                    <td>
+                      <TableYes text={"två mikrosekunder"}></TableYes>
+                    </td>
+                    <td>
+                      <TableNo text={"tre år"}></TableNo>
+                    </td>
+                  </tr>
+                  {/* row 2 */}
+                  <tr>
+                    <td>Landskapsarkitektur</td>
+                    <td>
+                      <TableYes text={"bra typ"}></TableYes>
+                    </td>
+                    <td>
+                      <TableNo text={"kräver att man gräver typ"}></TableNo>
+                    </td>
+                  </tr>
+                  {/* row 3 */}
+                  <tr>
+                    <td>Långvarighet</td>
+                    <td>
+                      <TableYes text={"bra typ"}></TableYes>
+                    </td>
+                    <td>
+                      <TableYes text={"också rätt bra typ"}></TableYes>
+                    </td>
+                  </tr>
+                  {/* row 1 */}
+                  <tr>
+                    <td>Installationstid</td>
+                    <td>
+                      <TableYes text={"två mikrosekunder"}></TableYes>
+                    </td>
+                    <td>
+                      <TableNo text={"tre år"}></TableNo>
+                    </td>
+                  </tr>
+                  {/* row 2 */}
+                  <tr>
+                    <td>Landskapsarkitektur</td>
+                    <td>
+                      <TableYes text={"bra typ"}></TableYes>
+                    </td>
+                    <td>
+                      <TableNo text={"kräver att man gräver typ"}></TableNo>
+                    </td>
+                  </tr>
+                  {/* row 3 */}
+                  <tr>
+                    <td>Långvarighet</td>
+                    <td>
+                      <TableYes text={"bra typ"}></TableYes>
+                    </td>
+                    <td>
+                      <TableYes text={"också rätt bra typ"}></TableYes>
+                    </td>
+                  </tr>
+                  {/* row 1 */}
+                  <tr>
+                    <td>Installationstid</td>
+                    <td>
+                      <TableYes text={"två mikrosekunder"}></TableYes>
+                    </td>
+                    <td>
+                      <TableNo text={"tre år"}></TableNo>
+                    </td>
+                  </tr>
+                  {/* row 2 */}
+                  <tr>
+                    <td>Landskapsarkitektur</td>
+                    <td>
+                      <TableYes text={"bra typ"}></TableYes>
+                    </td>
+                    <td>
+                      <TableNo text={"kräver att man gräver typ"}></TableNo>
+                    </td>
+                  </tr>
+                  {/* row 3 */}
+                  <tr>
+                    <td>Långvarighet</td>
+                    <td>
+                      <TableYes text={"bra typ"}></TableYes>
+                    </td>
+                    <td>
+                      <TableYes text={"också rätt bra typ"}></TableYes>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </AnimateOnScroll>
           </div>
         </div>
       </div>
@@ -242,62 +345,27 @@ export default function Home() {
         <div className="container mx-auto px-4 py-20 text-white">
           <div className="flex flex-wrap-reverse items-start gap-4 w-full">
             <div style={{ flex: "1 1 20%" }} className="p-8">
-              <div className="flex flex-col items-center gap-4 min-w-[24rem]">
-                <div className="collapse collapse-plus bg-slate-700 rounded-none">
-                  <input type="checkbox" className="peer" />
-                  <div className="collapse-title text-xl font-medium peer-checked:bg-slate-800">
-                    Click me to show/hide contents
-                  </div>
-                  <div className="collapse-content peer-checked:bg-slate-800">
-                    <p>hello</p>
-                  </div>
+              <AnimateOnScroll direction={"bottom"}>
+                <div className="flex flex-col items-center gap-4 min-w-[8rem]">
+                  <FaqItem fråga={"fråga?"} svar={"svar"}></FaqItem>
+                  <FaqItem fråga={"fråga?"} svar={"svar"}></FaqItem>
+                  <FaqItem fråga={"fråga?"} svar={"svar"}></FaqItem>
+                  <FaqItem fråga={"fråga?"} svar={"svar"}></FaqItem>
                 </div>
-                <div className="collapse collapse-plus bg-slate-700 rounded-none">
-                  <input type="checkbox" className="peer" />
-                  <div className="collapse-title text-xl font-medium peer-checked:bg-slate-800">
-                    Click me to show/hide contents
-                  </div>
-                  <div className="collapse-content peer-checked:bg-slate-800">
-                    <p>hello</p>
-                  </div>
-                </div>
-                <div className="collapse collapse-plus bg-slate-700 rounded-none">
-                  <input type="checkbox" className="peer" />
-                  <div className="collapse-title text-xl font-medium peer-checked:bg-slate-800">
-                    Click me to show/hide contents
-                  </div>
-                  <div className="collapse-content peer-checked:bg-slate-800">
-                    <p>hello</p>
-                  </div>
-                </div>
-                <div className="collapse collapse-plus bg-slate-700 rounded-none">
-                  <input type="checkbox" className="peer" />
-                  <div className="collapse-title text-xl font-medium peer-checked:bg-slate-800">
-                    Click me to show/hide contents
-                  </div>
-                  <div className="collapse-content peer-checked:bg-slate-800">
-                    <p>hello</p>
-                  </div>
-                </div>
-                <div className="collapse collapse-plus bg-slate-700 rounded-none">
-                  <input type="checkbox" className="peer" />
-                  <div className="collapse-title text-xl font-medium peer-checked:bg-slate-800">
-                    Click me to show/hide contents
-                  </div>
-                  <div className="collapse-content peer-checked:bg-slate-800">
-                    <p>hello</p>
-                  </div>
-                </div>
-              </div>
+              </AnimateOnScroll>
             </div>
 
             <div className="relative h-fit mb-auto" style={{ flex: "1 1 0%" }}>
               <h3 className="font-bold text-[3rem] font-serif relative z-10">
-                Vanliga frågor
+                <AnimateOnScroll direction={"right"}>
+                  Vanliga frågor
+                </AnimateOnScroll>
               </h3>
               <h4 className="text-[1.5rem] relative z-10">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Corrupti
+                <AnimateOnScroll direction={"right"}>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Corrupti
+                </AnimateOnScroll>
               </h4>
               <div className="absolute z-0 right-0 top-0 -translate-y-full md:bottom-0 md:translate-y-full">
                 <Image height={"200"} src={unDrawFaq} alt=""></Image>
@@ -307,22 +375,24 @@ export default function Home() {
         </div>
       </div>
       <div className="container mx-auto relative z-10 px-4 py-20">
-        <h3 className="font-bold text-[3rem] font-serif text-center">
-          Låter det interessant?
-        </h3>
-        <div className="flex justify-center items-center gap-2 mt-8">
-          <button className="bg-rose-500 text-base hover:opacity-80 transition-all text-white font-bold rounded-full px-8 py-3">
-            Boka tid
-          </button>
-          <button className="text-base font-medium rounded-full px-5 py-2 border-2 border-rose-500 text-rose-500 hover:bg-rose-500 hover:text-white transition-all hover:opacity-80">
-            Prata med en expert
-          </button>
-        </div>
-        <p className="text-center mt-4">
-          (bara 4 lediga tider kvar denna månad)
-        </p>
+        <AnimateOnScroll direction={"bottom"}>
+          <h3 className="font-bold text-[2.5rem] sm:text-[3rem] font-serif text-center">
+            Låter det interessant?
+          </h3>
+          <div className="flex justify-center items-center gap-2 mt-8">
+            <button className="bg-rose-500 hover:opacity-80 transition-all text-white font-bold rounded-full px-8 py-3 border border-white active:scale-95">
+              Boka relining
+            </button>
+            <button className="bg-white text-rose-500 border-2 border-rose-500 hover:opacity-80 transition-all font-bold rounded-full px-8 py-3 hover:bg-rose-500 hover:text-white active:scale-95">
+              Prata med en expert
+            </button>
+          </div>
+          <p className="text-center mt-4">
+            (bara 4 lediga tider kvar denna månad)
+          </p>
+        </AnimateOnScroll>
       </div>
       <Footer></Footer>
-    </>
+    </div>
   );
 }
