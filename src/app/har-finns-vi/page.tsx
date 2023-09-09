@@ -1,41 +1,74 @@
 "use client";
 
-import React, { useRef } from "react";
-
-import { notFound } from "next/navigation";
+import { ReactNode, useRef } from "react";
 
 import menueItems from "@/components/component-configs/nav-config";
 
-import { useInView } from "framer-motion";
-import Form from "@/components/Form";
-import Footer from "@/components/Footer";
 import Nav from "@/components/Nav";
-
-import translateDynaimPathToCityName from "@/utils/translateDynaimPathToCityName";
-
-import { motion, useAnimation } from "framer-motion";
-
-import { usePathname, useSearchParams } from "next/navigation";
-
+import Footer from "@/components/Footer";
+import Form from "@/components/Form";
 import FaqItem from "@/components/FaqItem";
-
 import AnimateOnScroll from "@/components/AnimateOnScroll";
 
-function Testing() {
-  const pathName = usePathname();
-  const currentDynamicPathName = new URL(`https://${pathName}`).pathname //the https is not actually meaningful, but it's needed to make the constructor work
-    .split("/")
-    .pop();
+import { motion, useAnimation } from "framer-motion";
+import { inView } from "framer-motion";
+import { useInView } from "framer-motion";
 
-  let currentCity;
-  if (currentDynamicPathName !== undefined) {
-    currentCity = translateDynaimPathToCityName(currentDynamicPathName);
-    if (currentCity === undefined) {
-      console.log("not defined");
-      return notFound();
-    }
-  }
+import { Accordion, AccordionItem, NextUIProvider } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 
+import ModalForm from "@/components/ModalForm";
+
+interface TableUtilProps {
+  text: string;
+}
+function TableYes({ text }: TableUtilProps) {
+  return (
+    <NextUIProvider>
+      <div className="flex items-center gap-2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={3}
+          stroke="green"
+          className="w-6 h-6 shrink-0"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M4.5 12.75l6 6 9-13.5"
+          />
+        </svg>
+        {text}
+      </div>
+    </NextUIProvider>
+  );
+}
+
+function TableNo({ text }: TableUtilProps) {
+  return (
+    <div className="flex items-center gap-2">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        strokeWidth={3}
+        stroke="red"
+        className="w-6 h-6 shrink-0"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
+      {text}
+    </div>
+  );
+}
+
+export default function Home() {
   return (
     <>
       <Nav config={menueItems}></Nav>
@@ -48,7 +81,7 @@ function Testing() {
               animate={{ y: "0px", opacity: "100%" }}
               transition={{ type: "spring", stiffness: 80, delay: 0 }}
             >
-              Relining i {currentCity}
+              Här finns vi
             </motion.h1>
             <motion.h2
               className="relative z-20 text-lg sm:text-[1.5rem] bg-white bg-opacity-50"
@@ -56,11 +89,10 @@ function Testing() {
               animate={{ y: "0px", opacity: "100%" }}
               transition={{ type: "spring", stiffness: 80, delay: 0.2 }}
             >
-              Med vår relining-teknik i {currentCity} erbjuder vi en
-              kostnadseffektiv lösning för att reparera skadade rör utan behov
-              av grävning. Genom att sätta in en ny lining inuti det befintliga
-              röret förstärker vi röret, stänger av läckor och ger ett
-              miljövänligare alternativ till traditionella rörbyten.{" "}
+              Relining är en kostnadseffektiv teknik för att reparera skadade
+              rör utan grävning genom att infoga en ny lining inuti det
+              befintliga röret. Detta förstärker röret, täpper till läckor och
+              är miljövänligare än traditionella utbyten.
             </motion.h2>
             <div className="relative z-20 mt-5 flex gap-2">
               <motion.div
@@ -68,18 +100,34 @@ function Testing() {
                 animate={{ y: "0px", opacity: "100%" }}
                 transition={{ type: "spring", stiffness: 80, delay: 0.4 }}
               >
-                <button className="bg-rose-500 text-base hover:opacity-80 transition-all text-white font-bold rounded-full px-8 py-3 border border-white active:scale-95">
-                  Learn more
-                </button>
+                <Button
+                  className="hover:scale-105"
+                  color="primary"
+                  size="lg"
+                  variant="faded"
+                  radius="full"
+                  onClick={() => {
+                    window.scrollBy({ top: 500, behavior: "smooth" });
+                  }}
+                >
+                  Läs mer
+                </Button>
               </motion.div>
               <motion.div
                 initial={{ y: "10px", opacity: "0%" }}
                 animate={{ y: "0px", opacity: "100%" }}
                 transition={{ type: "spring", stiffness: 80, delay: 0.45 }}
               >
-                <button className="bg-rose-500 text-base hover:opacity-80 transition-all text-white font-bold rounded-full px-8 py-3 border border-white active:scale-95">
-                  Boka
-                </button>
+                <ModalForm
+                  key="right-button"
+                  className="hover:scale-105"
+                  color="primary"
+                  size="lg"
+                  radius="full"
+                  variant="shadow"
+                >
+                  Kontaka oss
+                </ModalForm>
               </motion.div>
             </div>
             <div className="absolute z-10 left-0 bottom-0 w-full flex justify-center p-8">
@@ -103,36 +151,38 @@ function Testing() {
             </div>
           </div>
         </div>
-        <div className="bg-slate-800 relative z-10">
+        <div className="bg-slate-800 relative z-10 shadow-xl">
           <div className="container mx-auto px-4 py-20 text-white">
             <div className="flex flex-wrap gap-4 w-full">
               <div className="flex-1">
                 <h3 className="font-bold text-[3rem] font-serif">
                   <AnimateOnScroll direction="left">
-                    The relining mission
+                    Förnya dina rör utan störningar
                   </AnimateOnScroll>
                 </h3>
                 <h4 className="text-[1.5rem]">
                   <AnimateOnScroll direction="left">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Corrupti nesciunt natus ipsum quo minus! Suscipit expedita
-                    vitae fugiat error
+                    Spara både tid och pengar genom att investera i en hållbar
+                    lösning.
                   </AnimateOnScroll>
                 </h4>
               </div>
               <div className=" min-w-[14rem]" style={{ flex: "1 1 20%" }}>
                 <AnimateOnScroll direction="bottom">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et
-                  vel officia nulla accusamus ducimus numquam exercitationem
-                  obcaecati sequi! Cumque a illo quidem atque aperiam in fugit
-                  laudantium distinctio officiis tempore? Lorem ipsum dolor, sit
-                  amet consectetur adipisicing elit. Quo fugit officiis mollitia
-                  sunt nam ducimus dolore? Rem id, similique, molestias animi
-                  placeat vel commodi illo veritatis, nam tempora nesciunt
-                  facere. Lorem ipsum dolor sit amet consectetur adipisicing
-                  elit. In accusantium tenetur dignissimos a ut deleniti
-                  aliquam! Suscipit, sint. Itaque non unde excepturi, atque
-                  mollitia illo eveniet recusandae animi! Iure, atque!
+                  Relining är en innovativ teknik för att reparera skadade rör
+                  utan att behöva byta ut dem helt. Istället för att gräva upp
+                  och ersätta gamla rör, införs en ny, hållbar lining inuti det
+                  befintliga röret, vilket skapar en slät, tät yta. Den stora
+                  fördelen? Mindre störningar. Ingen trädgård som vänds upp och
+                  ned, och oftast är processen snabbare och mer kostnadseffektiv
+                  än traditionella metoder. Relining erbjuder också en hållbar
+                  lösning med beläggningar som kan hålla i flera decennier.{" "}
+                  <br /> <br /> För fastighetsägare kan detta innebära
+                  besparingar på lång sikt genom att undvika framtida skador och
+                  underhåll. Med tanke på miljövänligheten,
+                  kostnadsbesparingarna och den minimerade störningen, bör
+                  relining vara på din radar nästa gång dina rör behöver omsorg.{" "}
+                  <br />
                 </AnimateOnScroll>
               </div>
             </div>
@@ -144,18 +194,213 @@ function Testing() {
               Relinig vs Stambyte
             </AnimateOnScroll>
           </h3>
+          <div className="relative z-10 mx-auto max-w-3xl">
+            <div className="overflow-x-auto overflow-y-hidden">
+              <AnimateOnScroll direction={"bottom"}>
+                <table className="table mt-8 bg-white bg-opacity-50">
+                  {/* head */}
+                  <thead>
+                    <tr>
+                      <th>Parameter</th>
+                      <th>Relining</th>
+                      <th>Stambyte</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Livslängd</td>
+                      <td>
+                        <TableYes text={"Upp till 50 år"}></TableYes>
+                      </td>
+                      <td>
+                        <TableYes text={"Ca 50"}></TableYes>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Kostnad</td>
+                      <td>
+                        <TableYes text={"Oftast billigare"}></TableYes>
+                      </td>
+                      <td>
+                        <TableNo text={"Oftast dyrare"}></TableNo>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Installationstid</td>
+                      <td>
+                        <TableYes text={"Snabbt, några dagar"}></TableYes>
+                      </td>
+                      <td>
+                        <TableNo text={"Kan ta flera månader"}></TableNo>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Störningsgrad</td>
+                      <td>
+                        <TableYes text={"Minimal; inget rivande"}></TableYes>
+                      </td>
+                      <td>
+                        <TableNo
+                          text={"Större ingrepp; omfattande byggjobb"}
+                        ></TableNo>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Flexibilitet</td>
+                      <td>
+                        <TableYes
+                          text={"Skräddarsys lätt för olika system"}
+                        ></TableYes>
+                      </td>
+                      <td>
+                        <TableNo
+                          text={"Mer rigid, kräver omfattande planering"}
+                        ></TableNo>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Underhåll</td>
+                      <td>
+                        <TableYes text={"Lågt underhållsbehov"}></TableYes>
+                      </td>
+                      <td>
+                        <TableNo
+                          text={"Kräver regelbundet underhåll"}
+                        ></TableNo>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Energibesparing</td>
+                      <td>
+                        <TableYes
+                          text={"Potentiell energibesparing"}
+                        ></TableYes>
+                      </td>
+                      <td>
+                        <TableNo
+                          text={"Inte alltid energibesparande"}
+                        ></TableNo>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Säkerhet</td>
+                      <td>
+                        <TableYes text={"Minimerar risk för läckor"}></TableYes>
+                      </td>
+                      <td>
+                        <TableNo
+                          text={"Risk för läckor under installation"}
+                        ></TableNo>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td>Estetik</td>
+                      <td>
+                        <TableYes text={"Bevarar befintlig estetik"}></TableYes>
+                      </td>
+                      <td>
+                        <TableNo
+                          text={"Kan kräva ytterligare renoveringar"}
+                        ></TableNo>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </AnimateOnScroll>
+            </div>
+          </div>
         </div>
-        <div className="relative z-10 bg-slate-600 w-screen overflow-hidden">
+        <div className="relative z-10 bg-slate-800 shadow-xl w-screen overflow-hidden">
           <div className="container mx-auto px-4 py-20 text-white">
             <div className="flex flex-wrap-reverse items-start gap-4 w-full">
-              <div style={{ flex: "1 1 20%" }} className="p-8">
+              <div style={{ flex: "1 1 20%" }} className="py-8 pr-8">
                 <AnimateOnScroll direction={"bottom"}>
-                  <div className="flex flex-col items-center gap-4 min-w-[8rem]">
-                    <FaqItem fråga={"fråga?"} svar={"svar"}></FaqItem>
-                    <FaqItem fråga={"fråga?"} svar={"svar"}></FaqItem>
-                    <FaqItem fråga={"fråga?"} svar={"svar"}></FaqItem>
-                    <FaqItem fråga={"fråga?"} svar={"svar"}></FaqItem>
-                  </div>
+                  <Accordion
+                    variant="splitted"
+                    selectionMode="multiple"
+                    className=" text-white"
+                  >
+                    <AccordionItem
+                      key="1"
+                      aria-label="Hur länge varar ett relinat rör?"
+                      title="Hur länge varar ett relinat rör?"
+                      className="text-black"
+                    >
+                      <div className="pb-2">
+                        Ett korrekt relinat rör kan hålla i 50 år eller längre
+                        beroende på material och arbetsförhållanden.
+                      </div>
+                    </AccordionItem>
+                    <AccordionItem
+                      key="2"
+                      aria-label="Är relining säkert för dricksvattenrör?"
+                      title="Är relining säkert för dricksvattenrör?"
+                      className="text-black"
+                    >
+                      <div className="pb-2">
+                        Ja, de material som används i relining-processen är
+                        godkända och säkra för dricksvatten.
+                      </div>
+                    </AccordionItem>
+                    <AccordionItem
+                      key="3"
+                      aria-label="Hur lång tid tar en relining-process?"
+                      title="Hur lång tid tar en relining-process?"
+                      className="text-black"
+                    >
+                      <div className="pb-2">
+                        Processens varaktighet beror på rörets längd och skick,
+                        men i de flesta fall kan relining slutföras på en dag.
+                      </div>
+                    </AccordionItem>
+                    <AccordionItem
+                      key="4"
+                      aria-label="Kan alla rör relinas?"
+                      title="Kan alla rör relinas?"
+                      className="text-black"
+                    >
+                      <div className="pb-2">
+                        Medan många rör kan relinas, finns det vissa
+                        förutsättningar där relining inte är lämpligt. En
+                        professionell bedömning rekommenderas för att avgöra om
+                        dina rör är lämpliga för processen.
+                      </div>
+                    </AccordionItem>
+                    <AccordionItem
+                      key="5"
+                      aria-label="Hur vet jag om mina rör behöver relining?"
+                      title="Hur vet jag om mina rör behöver relining?"
+                      className="text-black"
+                    >
+                      <div className="pb-2">
+                        Tecken som regelbundna blockeringar, läckage eller dålig
+                        avloppslukt kan tyda på att dina rör kan dra nytta av
+                        relining. Det är bäst att konsultera en expert för en
+                        noggrann bedömning.
+                      </div>
+                    </AccordionItem>
+                    <AccordionItem
+                      key="6"
+                      aria-label="Vad kostar relining jämfört med traditionella rörreparationer?"
+                      title="Vad kostar relining jämfört med traditionella rörreparationer?"
+                      className="text-black"
+                    >
+                      <div className="pb-2">
+                        Även om kostnaderna varierar beroende på projektets
+                        omfattning och komplexitet, tenderar relining ofta att
+                        vara mer kostnadseffektivt på grund av minskade
+                        arbetskostnader och mindre grävarbete.
+                      </div>
+                    </AccordionItem>
+                  </Accordion>
                 </AnimateOnScroll>
               </div>
               <div
@@ -169,8 +414,7 @@ function Testing() {
                 </h3>
                 <h4 className="text-[1.5rem] relative z-10">
                   <AnimateOnScroll direction={"right"}>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Corrupti
+                    Frågor och svar: Allt på ett ställe.
                   </AnimateOnScroll>
                 </h4>
               </div>
@@ -183,12 +427,16 @@ function Testing() {
               Låter det interessant?
             </h3>
             <div className="flex justify-center items-center gap-2 mt-8">
-              <button className="bg-rose-500 hover:opacity-80 transition-all text-white font-bold rounded-full px-8 py-3 border border-white active:scale-95">
+              <ModalForm
+                key="right-button"
+                className="hover:scale-105"
+                color="primary"
+                size="lg"
+                radius="full"
+                variant="shadow"
+              >
                 Boka relining
-              </button>
-              <button className="bg-white text-rose-500 border-2 border-rose-500 hover:opacity-80 transition-all font-bold rounded-full px-8 py-3 hover:bg-rose-500 hover:text-white active:scale-95">
-                Prata med en expert
-              </button>
+              </ModalForm>
             </div>
             <p className="text-center mt-4">
               (bara 4 lediga tider kvar denna månad)
@@ -196,10 +444,7 @@ function Testing() {
           </AnimateOnScroll>
         </div>
       </div>
-      <Form></Form>
       <Footer></Footer>
     </>
   );
 }
-
-export default Testing;

@@ -14,33 +14,40 @@ import { motion, useAnimation } from "framer-motion";
 import { inView } from "framer-motion";
 import { useInView } from "framer-motion";
 
+import { Accordion, AccordionItem, NextUIProvider } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
+
 import Image from "next/image";
 import unDrawMain from "../img/undraw_wash_hands_nwl2.svg";
 import unDrawCompare from "../img/undraw_split_testing_l1uw.svg";
 import unDrawFaq from "../img/undraw_faq_re_31cw.svg";
+
+import ModalForm from "@/components/ModalForm";
 
 interface TableUtilProps {
   text: string;
 }
 function TableYes({ text }: TableUtilProps) {
   return (
-    <div className="flex items-center gap-2">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={3}
-        stroke="green"
-        className="w-6 h-6 shrink-0"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M4.5 12.75l6 6 9-13.5"
-        />
-      </svg>
-      {text}
-    </div>
+    <NextUIProvider>
+      <div className="flex items-center gap-2">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={3}
+          stroke="green"
+          className="w-6 h-6 shrink-0"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M4.5 12.75l6 6 9-13.5"
+          />
+        </svg>
+        {text}
+      </div>
+    </NextUIProvider>
   );
 }
 
@@ -67,8 +74,6 @@ function TableNo({ text }: TableUtilProps) {
 }
 
 export default function Home() {
-  const kontaktRef = useRef<HTMLDivElement | null>(null);
-
   return (
     <>
       <Nav config={menueItems}></Nav>
@@ -100,34 +105,34 @@ export default function Home() {
                 animate={{ y: "0px", opacity: "100%" }}
                 transition={{ type: "spring", stiffness: 80, delay: 0.4 }}
               >
-                <button
-                  className="bg-rose-500 text-base hover:opacity-80 transition-all text-white font-bold rounded-full px-8 py-3 border border-white active:scale-95"
+                <Button
+                  className="hover:scale-105"
+                  color="primary"
+                  size="lg"
+                  variant="faded"
+                  radius="full"
                   onClick={() => {
                     window.scrollBy({ top: 500, behavior: "smooth" });
                   }}
                 >
                   Läs mer
-                </button>
+                </Button>
               </motion.div>
               <motion.div
                 initial={{ y: "10px", opacity: "0%" }}
                 animate={{ y: "0px", opacity: "100%" }}
                 transition={{ type: "spring", stiffness: 80, delay: 0.45 }}
               >
-                <button
-                  className="bg-rose-500 text-base hover:opacity-80 transition-all text-white font-bold rounded-full px-8 py-3 border border-white active:scale-95"
-                  onClick={() => {
-                    if (kontaktRef && kontaktRef.current) {
-                      kontaktRef.current.scrollIntoView({
-                        behavior: "smooth",
-                        block: "end",
-                        inline: "nearest",
-                      });
-                    }
-                  }}
+                <ModalForm
+                  key="right-button"
+                  className="hover:scale-105"
+                  color="primary"
+                  size="lg"
+                  radius="full"
+                  variant="shadow"
                 >
-                  Kontakta oss
-                </button>
+                  Kontaka oss
+                </ModalForm>
               </motion.div>
             </div>
             <div className="absolute z-10 left-0 bottom-0 w-full flex justify-center p-8">
@@ -154,7 +159,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="bg-slate-800 relative z-10">
+        <div className="bg-slate-800 relative z-10 shadow-xl">
           <div className="container mx-auto px-4 py-20 text-white">
             <div className="flex flex-wrap gap-4 w-full">
               <div className="flex-1">
@@ -324,52 +329,89 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="relative z-10 bg-slate-600 w-screen overflow-hidden">
+        <div className="relative z-10 bg-slate-800 shadow-xl w-screen overflow-hidden">
           <div className="container mx-auto px-4 py-20 text-white">
             <div className="flex flex-wrap-reverse items-start gap-4 w-full">
               <div style={{ flex: "1 1 20%" }} className="py-8 pr-8">
                 <AnimateOnScroll direction={"bottom"}>
-                  <div className="flex flex-col items-center gap-4 min-w-[8rem]">
-                    <FaqItem
-                      fråga={"Hur länge varar ett relinat rör?"}
-                      svar={
-                        "Ett korrekt relinat rör kan hålla i 50 år eller längre beroende på material och arbetsförhållanden."
-                      }
-                    ></FaqItem>
-                    <FaqItem
-                      fråga={"Är relining säkert för dricksvattenrör?"}
-                      svar={
-                        "Ja, de material som används i relining-processen är godkända och säkra för dricksvatten."
-                      }
-                    ></FaqItem>
-                    <FaqItem
-                      fråga={"Hur lång tid tar en relining-process?"}
-                      svar={
-                        "Processens varaktighet beror på rörets längd och skick, men i de flesta fall kan relining slutföras på en dag."
-                      }
-                    ></FaqItem>
-                    <FaqItem
-                      fråga={"Kan alla rör relinas?"}
-                      svar={
-                        "Medan många rör kan relinas, finns det vissa förutsättningar där relining inte är lämpligt. En professionell bedömning rekommenderas för att avgöra om dina rör är lämpliga för processen."
-                      }
-                    ></FaqItem>
-
-                    <FaqItem
-                      fråga={"Hur vet jag om mina rör behöver relining?"}
-                      svar={
-                        "Tecken som regelbundna blockeringar, läckage eller dålig avloppslukt kan tyda på att dina rör kan dra nytta av relining. Det är bäst att konsultera en expert för en noggrann bedömning."
-                      }
-                    ></FaqItem>
-                    <FaqItem
-                      fråga={
-                        "Vad kostar relining jämfört med traditionella rörreparationer?"
-                      }
-                      svar={
-                        "Även om kostnaderna varierar beroende på projektets omfattning och komplexitet, tenderar relining ofta att vara mer kostnadseffektivt på grund av minskade arbetskostnader och mindre grävarbete."
-                      }
-                    ></FaqItem>
-                  </div>
+                  <Accordion
+                    variant="splitted"
+                    selectionMode="multiple"
+                    className=" text-white"
+                  >
+                    <AccordionItem
+                      key="1"
+                      aria-label="Hur länge varar ett relinat rör?"
+                      title="Hur länge varar ett relinat rör?"
+                      className="text-black"
+                    >
+                      <div className="pb-2">
+                        Ett korrekt relinat rör kan hålla i 50 år eller längre
+                        beroende på material och arbetsförhållanden.
+                      </div>
+                    </AccordionItem>
+                    <AccordionItem
+                      key="2"
+                      aria-label="Är relining säkert för dricksvattenrör?"
+                      title="Är relining säkert för dricksvattenrör?"
+                      className="text-black"
+                    >
+                      <div className="pb-2">
+                        Ja, de material som används i relining-processen är
+                        godkända och säkra för dricksvatten.
+                      </div>
+                    </AccordionItem>
+                    <AccordionItem
+                      key="3"
+                      aria-label="Hur lång tid tar en relining-process?"
+                      title="Hur lång tid tar en relining-process?"
+                      className="text-black"
+                    >
+                      <div className="pb-2">
+                        Processens varaktighet beror på rörets längd och skick,
+                        men i de flesta fall kan relining slutföras på en dag.
+                      </div>
+                    </AccordionItem>
+                    <AccordionItem
+                      key="4"
+                      aria-label="Kan alla rör relinas?"
+                      title="Kan alla rör relinas?"
+                      className="text-black"
+                    >
+                      <div className="pb-2">
+                        Medan många rör kan relinas, finns det vissa
+                        förutsättningar där relining inte är lämpligt. En
+                        professionell bedömning rekommenderas för att avgöra om
+                        dina rör är lämpliga för processen.
+                      </div>
+                    </AccordionItem>
+                    <AccordionItem
+                      key="5"
+                      aria-label="Hur vet jag om mina rör behöver relining?"
+                      title="Hur vet jag om mina rör behöver relining?"
+                      className="text-black"
+                    >
+                      <div className="pb-2">
+                        Tecken som regelbundna blockeringar, läckage eller dålig
+                        avloppslukt kan tyda på att dina rör kan dra nytta av
+                        relining. Det är bäst att konsultera en expert för en
+                        noggrann bedömning.
+                      </div>
+                    </AccordionItem>
+                    <AccordionItem
+                      key="6"
+                      aria-label="Vad kostar relining jämfört med traditionella rörreparationer?"
+                      title="Vad kostar relining jämfört med traditionella rörreparationer?"
+                      className="text-black"
+                    >
+                      <div className="pb-2">
+                        Även om kostnaderna varierar beroende på projektets
+                        omfattning och komplexitet, tenderar relining ofta att
+                        vara mer kostnadseffektivt på grund av minskade
+                        arbetskostnader och mindre grävarbete.
+                      </div>
+                    </AccordionItem>
+                  </Accordion>
                 </AnimateOnScroll>
               </div>
               <div
@@ -399,21 +441,22 @@ export default function Home() {
               Låter det interessant?
             </h3>
             <div className="flex justify-center items-center gap-2 mt-8">
-              <button className="bg-rose-500 hover:opacity-80 transition-all text-white font-bold rounded-full px-8 py-3 border border-white active:scale-95">
+              <ModalForm
+                key="right-button"
+                className="hover:scale-105"
+                color="primary"
+                size="lg"
+                radius="full"
+                variant="shadow"
+              >
                 Boka relining
-              </button>
-              <button className="bg-white text-rose-500 border-2 border-rose-500 hover:opacity-80 transition-all font-bold rounded-full px-8 py-3 hover:bg-rose-500 hover:text-white active:scale-95">
-                Prata med en expert
-              </button>
+              </ModalForm>
             </div>
             <p className="text-center mt-4">
               (bara 4 lediga tider kvar denna månad)
             </p>
           </AnimateOnScroll>
         </div>
-      </div>
-      <div ref={kontaktRef}>
-        <Form></Form>
       </div>
       <Footer></Footer>
     </>

@@ -154,7 +154,7 @@ function DesktopDropdown({
           <div
             ref={ref}
             className={
-              "absolute py-2 px-2 flex flex-col gap-1 bg-slate-100 text-start rounded-xl pt-7"
+              "absolute py-2 px-2 flex flex-col gap-1 bg-slate-100 shadow-md text-start rounded-xl pt-7"
             }
             style={{ zIndex: zIndex }}
           >
@@ -246,7 +246,7 @@ function Nav({ config }: any) {
   return (
     <>
       <div className="lg:hidden fixed w-full z-40 ">
-        <div className="bg-slate-100 w-full max-h-screen">
+        <div className="bg-slate-100 bg-opacity-90 backdrop-blur shadow-md w-full max-h-screen">
           <div className="mx-auto p-6">
             <div className="flex justify-between items-center">
               {leftSide}
@@ -309,7 +309,7 @@ function Nav({ config }: any) {
           )}
         </XyzTransition>
       </div>
-      <div className="hidden lg:block fixed w-full z-40">
+      <div className="hidden lg:block bg-slate-100 bg-opacity-90 backdrop-blur shadow-md fixed w-full z-40">
         <div className="bg-slate-100 w-full">
           <div className="mx-auto max-w-7xl p-4">
             <div className="flex justify-between items-center">
