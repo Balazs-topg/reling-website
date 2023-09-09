@@ -3,10 +3,12 @@
 import "@animxyz/core";
 import { XyzTransition, XyzTransitionGroup } from "@animxyz/react";
 
-import React, { use, useEffect, useRef, useState } from "react";
+import React, { ReactNode, use, useEffect, useRef, useState } from "react";
 
 import useWindowSize from "@/utils/useWindowSize";
 import useOutsideAlerter from "@/utils/useOutsideAlerter";
+import exp from "constants";
+import { inflateRaw } from "zlib";
 
 const icons = {
   closedHamburger: (
@@ -75,16 +77,58 @@ const icons = {
   ),
 };
 
-function DesktopDropdown({ children, className, alternatives }) {
-  console.log(alternatives);
+interface DropdownTypes {
+  children: ReactNode;
+  className?: string;
+  alternatives: any[];
+  z: number;
+}
+
+function Dropdown({
+  children,
+  className = "",
+  alternatives,
+  z,
+}: DropdownTypes) {
+  const currentWindowDimensions = useWindowSize();
+  if (currentWindowDimensions[0] > 1024) {
+    return (
+      <>
+        <DesktopDropdown className="" alternatives={alternatives} z={z}>
+          {children}
+        </DesktopDropdown>
+      </>
+    );
+  } else {
+    let defaultClassMobile: string = "";
+
+    return (
+      <MobileDropdown
+        z={0}
+        className={defaultClassMobile}
+        alternatives={alternatives}
+      >
+        {children}
+      </MobileDropdown>
+    );
+  }
+}
+
+function DesktopDropdown({
+  children,
+  className = "",
+  alternatives,
+  z,
+}: DropdownTypes) {
   const [currentlyOpened, setCurrentlyOpened] = useState(false);
-  const ref = useRef();
+  const ref = useRef<HTMLDivElement | null>(null);
   useOutsideAlerter(ref, () => {
     setCurrentlyOpened(false);
   });
 
+  let zIndex = -1 - z;
   return (
-    <li className={"relative"}>
+    <div className={"relative"}>
       <button
         className={className}
         onClick={() => {
@@ -105,28 +149,31 @@ function DesktopDropdown({ children, className, alternatives }) {
         </div>
       </button>
 
-      <XyzTransition className="item-group" xyz="duration-1.5 stagger-0.5 up-2">
+      <XyzTransition className="drop-down-animation">
         {currentlyOpened && (
           <div
             ref={ref}
-            className="absolute z-[-1] translate-y-6 py-2 px-2 flex flex-col gap-1 bg-slate-100 rounded-xl rounded-t-none"
+            className={
+              "absolute py-2 px-2 flex flex-col gap-1 bg-slate-100 text-start rounded-xl pt-7"
+            }
+            style={{ zIndex: zIndex }}
           >
             {alternatives.map((alternative) => (
               <button
-                key={0}
-                className="hover:bg-white focus:bg-white rounded-lg py-1 px-4 whitespace-nowrap cursor-pointer active:scale-95 transition-all"
+                key={alternative}
+                className="text-start hover:bg-white py-1 px-2 rounded-lg active:scale-95 transition-transform"
               >
-                {alternative.content}
+                {alternative}
               </button>
             ))}
           </div>
         )}
       </XyzTransition>
-    </li>
+    </div>
   );
 }
 
-function MobileDropdown({ children, className, alternatives }) {
+function MobileDropdown({ children, className, alternatives }: DropdownTypes) {
   const [currentlyOpened, setCurrentlyOpened] = useState(false);
 
   return (
@@ -139,7 +186,7 @@ function MobileDropdown({ children, className, alternatives }) {
             setCurrentlyOpened(!currentlyOpened);
           }}
         >
-          {children}{" "}
+          {children}
           <div
             className={
               currentlyOpened
@@ -154,62 +201,52 @@ function MobileDropdown({ children, className, alternatives }) {
       <div className=" rounded-b-3xl overflow-hidden">
         {alternatives.map((alternative) => (
           <div
-            key={0}
+            key={alternative}
             className={
               currentlyOpened
                 ? "bg-slate-200 overflow-hidden transition-all max-h-60 p-2"
                 : "bg-slate-200 overflow-hidden transition-all max-h-0"
             }
           >
-            {alternative.content}
+            {alternative}
           </div>
         ))}
       </div>
     </div>
   );
 }
+const isBrowser = typeof window !== "undefined";
 
-function Nav() {
-  const menueItems = [
-    {
-      content: "Relining avlopp",
-      dropDown: [{ content: "alt1" }, { content: "alt2" }],
-    },
-    {
-      content: "Om oss",
-      dropDown: [
-        { content: "Relining avlopp" },
-        { content: "Relining avlopp" },
-      ],
-    },
-    { content: "Karriär" },
-    { content: "Kontakt" },
-  ];
-
-  const rightSide = (
-    <button className="text-base w-fit font-medium rounded-full px-5 py-2 border-2 border-rose-500 text-rose-500 hover:bg-rose-500 hover:text-white transition-all hover:opacity-80">
-      Prata med en expert
-    </button>
-  );
-
-  const leftSide = (
-    <div className="font-semibold text-2xl">
-      Relining <span className="text-rose-500">Exellent</span>
-    </div>
-  );
+function Nav({ config }: any) {
+  const nav = config.nav;
+  const leftSide = config.leftSide;
+  const rightSide = config.rightSide;
 
   const currentWindowDimensions = useWindowSize();
-  const [hamburgerIsOpen, setHamburgerIsOpen] = useState(true);
+  const [hamburgerIsOpen, setHamburgerIsOpen] = useState(false);
   useEffect(() => {
     if (currentWindowDimensions[0] > 1024) {
       setHamburgerIsOpen(false);
     }
   }, [currentWindowDimensions]);
 
+  if (isBrowser) {
+    const documentContent = document.body.querySelector("#content");
+  }
+  useEffect(() => {
+    if (isBrowser) {
+      if (hamburgerIsOpen) {
+        document.documentElement.classList.add("h-full", "overflow-hidden");
+      } else {
+        document.documentElement.classList.remove("h-full", "overflow-hidden");
+      }
+    }
+  }, [hamburgerIsOpen]);
+
   return (
     <>
-      <div className="lg:hidden">
-        <div className="bg-slate-100 w-full">
+      <div className="lg:hidden fixed w-full z-40 ">
+        <div className="bg-slate-100 w-full max-h-screen">
           <div className="mx-auto p-6">
             <div className="flex justify-between items-center">
               {leftSide}
@@ -240,35 +277,18 @@ function Nav() {
             <div
               className={
                 hamburgerIsOpen
-                  ? "overflow-hidden transition-all rounded-lg max-h-screen"
+                  ? "overflow-hidden transition-all max-h-screen"
                   : "overflow-hidden transition-all max-h-0"
               }
             >
-              <ol className="py-4 mt-2 text-lg font-medium text-center">
+              <ol className="py-4 mt-2 text-lg font-medium text-center max-h-[80vh] overflow-scroll ">
                 <XyzTransitionGroup
-                  className="item-group flex flex-col items-center gap-4"
+                  className="item-group flex flex-col gap-4"
                   xyz="duration-2  fade stagger-0.5 left-2"
                 >
-                  {menueItems.map(
-                    (item) =>
-                      hamburgerIsOpen &&
-                      (!item.dropDown ? (
-                        <button
-                          key={item.content}
-                          className="active:scale-95 transition-transform"
-                        >
-                          {item.content}
-                        </button>
-                      ) : (
-                        <li className="w-full">
-                          <MobileDropdown
-                            className="active:scale-95 transition-transform mx-auto"
-                            alternatives={item.dropDown}
-                          >
-                            {item.content}
-                          </MobileDropdown>
-                        </li>
-                      ))
+                  {nav.map(
+                    (item: any) =>
+                      hamburgerIsOpen && <li key={item.key}>{item}</li>
                   )}
                   {hamburgerIsOpen && <div>{rightSide}</div>}
                 </XyzTransitionGroup>
@@ -276,27 +296,28 @@ function Nav() {
             </div>
           </div>
         </div>
+        <XyzTransition xyz="fade duration-2">
+          {hamburgerIsOpen && (
+            <div
+              className="fixed top-0 left-0 h-screen w-full bg-opacity-50 backdrop-blur bg-slate-300 z-[-1]"
+              onClick={() => {
+                setHamburgerIsOpen(false);
+              }}
+            >
+              background
+            </div>
+          )}
+        </XyzTransition>
       </div>
-      <div className="hidden lg:block">
+      <div className="hidden lg:block fixed w-full z-40">
         <div className="bg-slate-100 w-full">
           <div className="mx-auto max-w-7xl p-4">
             <div className="flex justify-between items-center">
               {leftSide}
-              <ol className="font-medium flex gap-5">
-                {menueItems.map((item) =>
-                  !item.dropDown ? (
-                    <div className="active:scale-95 transition-all">
-                      {item.content}
-                    </div>
-                  ) : (
-                    <DesktopDropdown
-                      className="active:scale-95 transition-all"
-                      alternatives={item.dropDown}
-                    >
-                      {item.content}
-                    </DesktopDropdown>
-                  )
-                )}
+              <ol className="font-medium text-lg flex gap-8">
+                {nav.map((item: any) => (
+                  <li key={item}>{item}</li>
+                ))}
               </ol>
               {rightSide}
             </div>
@@ -308,3 +329,5 @@ function Nav() {
 }
 
 export default Nav;
+
+export { Dropdown };

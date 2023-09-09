@@ -13,3 +13,16 @@
     transform: scale(2);
   }
 }
+
+.drop-down-animation {
+  --xyz-translate-y: -100%;
+  --xyz-duration: 250ms;
+}
+
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
