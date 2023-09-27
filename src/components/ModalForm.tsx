@@ -30,7 +30,7 @@ export default function ModalForm({ children, ...props }: ModalFormProps) {
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
     if (!formRef.current) return;
-    
+
     const formData = new FormData(formRef.current);
     const data = Object.fromEntries(formData.entries());
     console.log(data);
@@ -61,7 +61,7 @@ export default function ModalForm({ children, ...props }: ModalFormProps) {
               </ModalHeader>
               <form ref={formRef} className="space-y-3" onSubmit={handleSubmit}>
                 <ModalBody>
-                  <Select label="Select an animal" isRequired name="animal">
+                  <Select label="Välj ärende" isRequired name="animal">
                     {formOptions.map((animal) => (
                       <SelectItem key={animal.value} value={animal.value}>
                         {animal.label}
