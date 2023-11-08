@@ -179,7 +179,7 @@ export default function Home() {
                 <AnimateOnScroll direction="bottom">
                   Relining är en innovativ teknik för att reparera skadade rör
                   utan att behöva byta ut dem helt. Istället för att gräva upp
-                  och ersätta gamla rör, införs en ny, hållbar lining inuti det
+                  och byta ut gamla rör, införs en ny, hållbar lining inuti det
                   befintliga röret, vilket skapar en slät, tät yta. Den stora
                   fördelen? Mindre störningar. Ingen trädgård som vänds upp och
                   ned, och oftast är processen snabbare och mer kostnadseffektiv
