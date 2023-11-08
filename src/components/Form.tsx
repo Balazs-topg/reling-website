@@ -38,7 +38,7 @@ function Form() {
       console.log(formData);
       const response = await axios.post(
         "https://your-api-endpoint.com/submit",
-        formData
+        formData,
       );
       console.log("Response:", response.data);
       // change the api call

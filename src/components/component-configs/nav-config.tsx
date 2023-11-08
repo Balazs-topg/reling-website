@@ -4,12 +4,11 @@ import { Button } from "@nextui-org/react";
 import ModalForm from "../ModalForm";
 
 const alternativesTwStyle =
-  "hover:bg-white focus:bg-white rounded-lg py-1 px-4 whitespace-nowrap cursor-pointer active:scale-95 transition-all text-start";
+  "whitespace-nowrap hover:bg-white   rounded-lg focus:bg-white py-1 px-4  cursor-pointer active:scale-95 transition-all text-start";
 
 const menueItems = {
   nav: [
     <div key="omrelining">Om relining</div>,
-
     <div key="jobbahar">Jobba här</div>,
     <Dropdown
       key="dropdown2"
@@ -22,12 +21,8 @@ const menueItems = {
         >
           Här finns vi
         </Link>,
-        <Link
-          key="link-vaxjo"
-          href={"/stader/vaxjo"}
-          className=" whitespace-nowrap"
-        >
-          Våran historia
+        <Link key="om-oss" href={"/har-finns-vi"} className=" whitespace-nowrap">
+          Om oss
         </Link>,
       ]}
     >

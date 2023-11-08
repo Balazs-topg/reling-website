@@ -4,7 +4,7 @@ const isBrowser = typeof window !== "undefined";
 
 function useOutsideAlerter(
   ref: MutableRefObject<HTMLElement | null>,
-  CallbackFunction: () => void
+  CallbackFunction: () => void,
 ): void {
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {

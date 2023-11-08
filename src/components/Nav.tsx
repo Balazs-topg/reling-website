@@ -288,7 +288,7 @@ function Nav({ config }: any) {
                 >
                   {nav.map(
                     (item: any) =>
-                      hamburgerIsOpen && <li key={item.key}>{item}</li>
+                      hamburgerIsOpen && <li key={item.key}>{item}</li>,
                   )}
                   {hamburgerIsOpen && <div>{rightSide}</div>}
                 </XyzTransitionGroup>

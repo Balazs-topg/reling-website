@@ -46,7 +46,7 @@ export default function ModalForm({ children, ...props }: ModalFormProps) {
         isOpen={isOpen}
         onOpenChange={() => {
           const userWantsToClose = confirm(
-            "om du stänger formuläret så raderas dina svar. Är du säker?"
+            "om du stänger formuläret så raderas dina svar. Är du säker?",
           );
           if (userWantsToClose) onOpenChange();
         }}
