@@ -78,7 +78,7 @@ export default function Home() {
     <>
       <Nav config={menueItems}></Nav>
       <div className="w-full" id="content">
-        <div className="containers relative z-10 mx-auto h-[50rem] p-4 max-[350px]:scale-90">
+        <div className="container relative z-10 mx-auto h-[50rem] p-4 max-[350px]:scale-90">
           <div className="flex h-full flex-col items-start justify-center lg:w-3/5">
             <motion.h1
               className=" relative z-30 font-serif text-[3rem] font-bold sm:text-[4rem]"
