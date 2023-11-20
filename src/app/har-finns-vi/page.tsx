@@ -32,7 +32,7 @@ function TableYes({ text }: TableUtilProps) {
           viewBox="0 0 24 24"
           strokeWidth={3}
           stroke="green"
-          className="w-6 h-6 shrink-0"
+          className="h-6 w-6 shrink-0"
         >
           <path
             strokeLinecap="round"
@@ -55,7 +55,7 @@ function TableNo({ text }: TableUtilProps) {
         viewBox="0 0 24 24"
         strokeWidth={3}
         stroke="red"
-        className="w-6 h-6 shrink-0"
+        className="h-6 w-6 shrink-0"
       >
         <path
           strokeLinecap="round"
@@ -74,9 +74,9 @@ export default function Home() {
       <Nav config={menueItems}></Nav>
       <div className="w-full" id="content">
         <div className="container relative z-10 mx-auto h-[50rem] p-4 max-[350px]:scale-90">
-          <div className="flex flex-col items-start justify-center h-full lg:w-3/5">
+          <div className="flex h-full flex-col items-start justify-center lg:w-3/5">
             <motion.h1
-              className="relative z-30 text-[3rem] sm:text-[4rem] font-serif font-bold"
+              className="relative z-30 font-serif text-[3rem] font-bold sm:text-[4rem]"
               initial={{ y: "100px", opacity: "0%" }}
               animate={{ y: "0px", opacity: "100%" }}
               transition={{ type: "spring", stiffness: 80, delay: 0 }}
@@ -84,7 +84,7 @@ export default function Home() {
               Här finns vi
             </motion.h1>
             <motion.h2
-              className="relative z-20 text-lg sm:text-[1.5rem] bg-white bg-opacity-50"
+              className="relative z-20 bg-white bg-opacity-50 text-lg sm:text-[1.5rem]"
               initial={{ y: "100px", opacity: "0%" }}
               animate={{ y: "0px", opacity: "100%" }}
               transition={{ type: "spring", stiffness: 80, delay: 0.2 }}
@@ -130,12 +130,12 @@ export default function Home() {
                 </ModalForm>
               </motion.div>
             </div>
-            <div className="absolute z-10 left-0 bottom-0 w-full flex justify-center p-8">
+            <div className="absolute bottom-0 left-0 z-10 flex w-full justify-center p-8">
               <svg
                 onClick={() => {
                   window.scrollBy({ top: 500, behavior: "smooth" });
                 }}
-                className="w-8 h-8 animate-bounce cursor-pointer"
+                className="h-8 w-8 animate-bounce cursor-pointer"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -151,11 +151,11 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="bg-slate-800 relative z-10 shadow-xl">
+        <div className="relative z-10 bg-slate-800 shadow-xl">
           <div className="container mx-auto px-4 py-20 text-white">
-            <div className="flex flex-wrap gap-4 w-full">
+            <div className="flex w-full flex-wrap gap-4">
               <div className="flex-1">
-                <h3 className="font-bold text-[3rem] font-serif">
+                <h3 className="font-serif text-[3rem] font-bold">
                   <AnimateOnScroll direction="left">
                     Förnya dina rör utan störningar
                   </AnimateOnScroll>
@@ -188,8 +188,8 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="relative z-10 container mx-auto px-4 py-20">
-          <h3 className="relative z-10 font-bold text-[3rem] font-serif text-center mx-auto bg-white bg-opacity-50 rounded-xl">
+        <div className="container relative z-10 mx-auto px-4 py-20">
+          <h3 className="relative z-10 mx-auto rounded-xl bg-white bg-opacity-50 text-center font-serif text-[3rem] font-bold">
             <AnimateOnScroll direction={"bottom"}>
               Relinig vs Stambyte
             </AnimateOnScroll>
@@ -318,9 +318,9 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="relative z-10 bg-slate-800 shadow-xl w-screen overflow-hidden">
+        <div className="relative z-10 w-screen overflow-hidden bg-slate-800 shadow-xl">
           <div className="container mx-auto px-4 py-20 text-white">
-            <div className="flex flex-wrap-reverse items-start gap-4 w-full">
+            <div className="flex w-full flex-wrap-reverse items-start gap-4">
               <div style={{ flex: "1 1 20%" }} className="py-8 pr-8">
                 <AnimateOnScroll direction={"bottom"}>
                   <Accordion
@@ -404,15 +404,15 @@ export default function Home() {
                 </AnimateOnScroll>
               </div>
               <div
-                className="relative h-fit mb-auto"
+                className="relative mb-auto h-fit"
                 style={{ flex: "1 1 0%" }}
               >
-                <h3 className="font-bold text-[3rem] font-serif relative z-10">
+                <h3 className="relative z-10 font-serif text-[3rem] font-bold">
                   <AnimateOnScroll direction={"right"}>
                     Vanliga frågor
                   </AnimateOnScroll>
                 </h3>
-                <h4 className="text-[1.5rem] relative z-10">
+                <h4 className="relative z-10 text-[1.5rem]">
                   <AnimateOnScroll direction={"right"}>
                     Frågor och svar: Allt på ett ställe.
                   </AnimateOnScroll>
@@ -421,12 +421,12 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="container mx-auto relative z-10 px-4 py-20">
+        <div className="container relative z-10 mx-auto px-4 py-20">
           <AnimateOnScroll direction={"bottom"}>
-            <h3 className="font-bold text-[2.5rem] sm:text-[3rem] font-serif text-center">
+            <h3 className="text-center font-serif text-[2.5rem] font-bold sm:text-[3rem]">
               Låter det interessant?
             </h3>
-            <div className="flex justify-center items-center gap-2 mt-8">
+            <div className="mt-8 flex items-center justify-center gap-2">
               <ModalForm
                 key="right-button"
                 className="hover:scale-105"
@@ -438,13 +438,12 @@ export default function Home() {
                 Boka relining
               </ModalForm>
             </div>
-            <p className="text-center mt-4">
+            <p className="mt-4 text-center">
               (bara 4 lediga tider kvar denna månad)
             </p>
           </AnimateOnScroll>
         </div>
       </div>
-      <Footer></Footer>
     </>
   );
 }

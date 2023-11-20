@@ -458,7 +458,6 @@ export default function Home() {
           </AnimateOnScroll>
         </div>
       </div>
-      <Footer></Footer>
     </>
   );
 }

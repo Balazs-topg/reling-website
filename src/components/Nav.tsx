@@ -7,8 +7,8 @@ import React, { ReactNode, use, useEffect, useRef, useState } from "react";
 
 import useWindowSize from "@/utils/useWindowSize";
 import useOutsideAlerter from "@/utils/useOutsideAlerter";
-import exp from "constants";
-import { inflateRaw } from "zlib";
+
+import menueItems from "./component-configs/nav-config";
 
 const icons = {
   closedHamburger: (
@@ -219,6 +219,7 @@ const isBrowser = typeof window !== "undefined";
 
 function Nav({ config }: any) {
   const nav = config.nav;
+
   const leftSide = config.leftSide;
   const rightSide = config.rightSide;
 

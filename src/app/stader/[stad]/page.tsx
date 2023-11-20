@@ -197,7 +197,6 @@ function Testing() {
         </div>
       </div>
       <Form></Form>
-      <Footer></Footer>
     </>
   );
 }

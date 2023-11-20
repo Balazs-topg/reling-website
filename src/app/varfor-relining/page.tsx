@@ -65,7 +65,6 @@ export default function OmOss() {
           </AnimateOnScroll>
         </div>
       </div>
-      <Footer />
     </>
   );
 }

@@ -21,7 +21,11 @@ const menueItems = {
         >
           Här finns vi
         </Link>,
-        <Link key="om-oss" href={"/har-finns-vi"} className=" whitespace-nowrap">
+        <Link
+          key="om-oss"
+          href={"/har-finns-vi"}
+          className=" whitespace-nowrap"
+        >
           Om oss
         </Link>,
       ]}
@@ -30,8 +34,8 @@ const menueItems = {
     </Dropdown>,
   ],
   leftSide: (
-    <Link key="left-link" className="font-semibold text-2xl" href={"/"}>
-      Relining <span className="text-primary">Exellent</span>
+    <Link key="left-link" className="text-2xl font-semibold" href={"/"}>
+      Epoxy <span className="text-primary">Relining</span>
     </Link>
   ),
   rightSide: (
