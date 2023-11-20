@@ -22,7 +22,7 @@ export default function OmOss() {
               animate={{ y: "0px", opacity: "100%" }}
               transition={{ type: "spring", stiffness: 80, delay: 0 }}
             >
-              Om Oss
+              Hur Det Fungerar
             </motion.h1>
           </div>
         </div>
@@ -30,16 +30,10 @@ export default function OmOss() {
           <div className=" mx-auto max-w-4xl px-4 pb-20 pt-16 text-white">
             <AnimateOnScroll direction="bottom">
               <div className="flex w-full flex-wrap gap-4 leading-8 tracking-wide">
-                Vi är branschexperter inom avloppsrenovering och har
-                specialiserat oss på relining, den moderna och kostnadseffektiva
-                metoden för att förnya ditt avloppssystem. Med flera års gedigen
-                erfarenhet i ryggen har vi utvecklat en process som är
-                tillförlitlig och effektiv. Men vad som verkligen sätter oss
-                isär är vår orubbliga strävan efter kvalitet och trygghet. Vi är
-                inte som andra. Vi är ditt bästa val för att garantera högsta
-                standard i branschen. Vad händer om du inte väljer oss? Risken
-                är att du oavsiktligt väljer ett företag som inte kan leva upp
-                till dina förväntningar.
+                Vår smidiga reliningsprocess är utformad för att göra
+                avloppsrenovering enkel och bekväm, både för dig som kund och
+                för vårt erfarna team av relingstekniker. Här är hur vår smidiga
+                reliningsprocess ser ut:
               </div>
             </AnimateOnScroll>
           </div>

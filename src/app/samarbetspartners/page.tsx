@@ -22,7 +22,7 @@ export default function OmOss() {
               animate={{ y: "0px", opacity: "100%" }}
               transition={{ type: "spring", stiffness: 80, delay: 0 }}
             >
-              Om Oss
+              Varför Våra Samarbetspartners Är Så Viktiga
             </motion.h1>
           </div>
         </div>
@@ -30,16 +30,27 @@ export default function OmOss() {
           <div className=" mx-auto max-w-4xl px-4 pb-20 pt-16 text-white">
             <AnimateOnScroll direction="bottom">
               <div className="flex w-full flex-wrap gap-4 leading-8 tracking-wide">
-                Vi är branschexperter inom avloppsrenovering och har
-                specialiserat oss på relining, den moderna och kostnadseffektiva
-                metoden för att förnya ditt avloppssystem. Med flera års gedigen
-                erfarenhet i ryggen har vi utvecklat en process som är
-                tillförlitlig och effektiv. Men vad som verkligen sätter oss
-                isär är vår orubbliga strävan efter kvalitet och trygghet. Vi är
-                inte som andra. Vi är ditt bästa val för att garantera högsta
-                standard i branschen. Vad händer om du inte väljer oss? Risken
-                är att du oavsiktligt väljer ett företag som inte kan leva upp
-                till dina förväntningar.
+                För oss är valet av samarbetspartners en av de mest kritiska
+                aspekterna av vår verksamhet. Vi har noggrant valt bort företag
+                som inte lever upp till våra höga standarder och fokuserar i
+                stället på att erbjuda de bästa möjliga lösningarna. Varför är
+                detta så viktigt? Eftersom relining är en effektiv tjänst som
+                kan utföras på ett utmärkt sätt, men tyvärr finns företag som
+                inte kan leva upp till dina förväntningar. Kunden har ofta svårt
+                att kontrollera arbetet själv, och därför är det så avgörande
+                att vi selekterar noggrant vilka företag vi väljer.
+                <br /> <br />
+                Därför har vi lagt stor vikt vid en noggrann granskning och en
+                direkt övervakning av för- och efterfilmerna för att säkerställa
+                att allt utförs på rätt sätt. Vårt mål är att inte bara erbjuda
+                en pålitlig reliningsteknik, utan också att värna om reliningens
+                rykte och kvalitet inom branschen.
+                <br /> <br />
+                Kontakta oss idag för att lära dig mer om hur vår
+                reliningsteknik kan förbättra ditt avloppssystem och göra din
+                fastighet mer hållbar. Du kan välja trygghet och kvalitet med
+                oss eller riskera ett oseriöst företag om du inte gör det rätta
+                valet.
               </div>
             </AnimateOnScroll>
           </div>

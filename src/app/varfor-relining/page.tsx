@@ -22,7 +22,7 @@ export default function OmOss() {
               animate={{ y: "0px", opacity: "100%" }}
               transition={{ type: "spring", stiffness: 80, delay: 0 }}
             >
-              Om Oss
+              Varför Relining?
             </motion.h1>
           </div>
         </div>
@@ -30,16 +30,13 @@ export default function OmOss() {
           <div className=" mx-auto max-w-4xl px-4 pb-20 pt-16 text-white">
             <AnimateOnScroll direction="bottom">
               <div className="flex w-full flex-wrap gap-4 leading-8 tracking-wide">
-                Vi är branschexperter inom avloppsrenovering och har
-                specialiserat oss på relining, den moderna och kostnadseffektiva
-                metoden för att förnya ditt avloppssystem. Med flera års gedigen
-                erfarenhet i ryggen har vi utvecklat en process som är
-                tillförlitlig och effektiv. Men vad som verkligen sätter oss
-                isär är vår orubbliga strävan efter kvalitet och trygghet. Vi är
-                inte som andra. Vi är ditt bästa val för att garantera högsta
-                standard i branschen. Vad händer om du inte väljer oss? Risken
-                är att du oavsiktligt väljer ett företag som inte kan leva upp
-                till dina förväntningar.
+                Traditionella stambyten kan vara tidskrävande, dyra och medföra
+                omfattande renoveringar och störningar. Vi har medvetet valt att
+                inte erbjuda denna föråldrade metod. I stället har vi satsat på
+                relineingstekniken, som är bekväm, effektiv och hållbar. Med
+                våra noggrant utvalda samarbetspartners är vi stolta över att
+                kunna erbjuda en smidig och bekymmersfri lösning för våra
+                kunder.
               </div>
             </AnimateOnScroll>
           </div>

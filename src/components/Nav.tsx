@@ -18,7 +18,7 @@ const icons = {
       viewBox="0 0 24 24"
       strokeWidth={2}
       stroke="currentColor"
-      className="w-8 h-8"
+      className="h-8 w-8"
     >
       <path
         strokeLinecap="round"
@@ -34,7 +34,7 @@ const icons = {
       viewBox="0 0 24 24"
       strokeWidth={2}
       stroke="currentColor"
-      className="w-8 h-8"
+      className="h-8 w-8"
     >
       <path
         strokeLinecap="round"
@@ -50,7 +50,7 @@ const icons = {
       viewBox="0 0 24 24"
       strokeWidth={2}
       stroke="currentColor"
-      className="w-4 h-4"
+      className="h-4 w-4"
     >
       <path
         strokeLinecap="round"
@@ -66,7 +66,7 @@ const icons = {
       viewBox="0 0 24 24"
       strokeWidth={2.5}
       stroke="currentColor"
-      className="w-6 h-6"
+      className="h-6 w-6"
     >
       <path
         strokeLinecap="round"
@@ -140,8 +140,8 @@ function DesktopDropdown({
           <div
             className={
               currentlyOpened
-                ? "transition-all -rotate-90"
-                : "transition-all rotate-0"
+                ? "-rotate-90 transition-all"
+                : "rotate-0 transition-all"
             }
           >
             {icons.dropDownArrow}
@@ -154,14 +154,14 @@ function DesktopDropdown({
           <div
             ref={ref}
             className={
-              "absolute py-2 px-2 flex flex-col gap-1 bg-slate-100 shadow-md text-start rounded-xl pt-7"
+              "absolute flex flex-col gap-1 rounded-xl bg-slate-100 px-2 py-2 pt-7 text-start shadow-md"
             }
             style={{ zIndex: zIndex }}
           >
             {alternatives.map((alternative) => (
               <button
                 key={alternative}
-                className="text-start hover:bg-white py-1 px-2 rounded-lg active:scale-95 transition-transform"
+                className="rounded-lg px-2 py-1 text-start transition-transform hover:bg-white active:scale-95"
               >
                 {alternative}
               </button>
@@ -177,7 +177,7 @@ function MobileDropdown({ children, className, alternatives }: DropdownTypes) {
   const [currentlyOpened, setCurrentlyOpened] = useState(false);
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex w-full flex-col">
       <button className={className}>
         <div
           className="flex items-center justify-center gap-1"
@@ -190,22 +190,22 @@ function MobileDropdown({ children, className, alternatives }: DropdownTypes) {
           <div
             className={
               currentlyOpened
-                ? "transition-all -rotate-90 "
-                : "transition-all rotate-0"
+                ? "-rotate-90 transition-all "
+                : "rotate-0 transition-all"
             }
           >
             {icons.dropDownArrowMobile}
           </div>
         </div>
       </button>
-      <div className=" rounded-b-3xl overflow-hidden">
+      <div className=" overflow-hidden rounded-b-3xl">
         {alternatives.map((alternative) => (
           <div
             key={alternative}
             className={
               currentlyOpened
-                ? "bg-slate-200 overflow-hidden transition-all max-h-60 p-2"
-                : "bg-slate-200 overflow-hidden transition-all max-h-0"
+                ? "max-h-60 overflow-hidden bg-slate-200 p-2 transition-all"
+                : "max-h-0 overflow-hidden bg-slate-200 transition-all"
             }
           >
             {alternative}
@@ -245,13 +245,13 @@ function Nav({ config }: any) {
 
   return (
     <>
-      <div className="lg:hidden fixed w-full z-40 ">
-        <div className="bg-slate-100 bg-opacity-90 backdrop-blur shadow-md w-full max-h-screen">
+      <div className="sticky top-0 z-40 w-full lg:hidden ">
+        <div className="max-h-screen w-full bg-slate-100 bg-opacity-90 shadow-md backdrop-blur">
           <div className="mx-auto p-6">
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               {leftSide}
               <button
-                className="active:scale-90 transition-transform"
+                className="transition-transform active:scale-90"
                 onClick={() => {
                   setHamburgerIsOpen(!hamburgerIsOpen);
                 }}
@@ -262,12 +262,12 @@ function Nav({ config }: any) {
                   xyz="duration-1 fade short-100% wide-0%"
                 >
                   {hamburgerIsOpen && (
-                    <div className="flex justify-center items-center active:[&>*]:opacity-100 transition-opacity ">
+                    <div className="flex items-center justify-center transition-opacity active:[&>*]:opacity-100 ">
                       {icons.openedHamburger}
                     </div>
                   )}
                   {!hamburgerIsOpen && (
-                    <div className="flex justify-center items-center active:[&>*]:opacity-100 transition-opacity">
+                    <div className="flex items-center justify-center transition-opacity active:[&>*]:opacity-100">
                       {icons.closedHamburger}
                     </div>
                   )}
@@ -277,11 +277,11 @@ function Nav({ config }: any) {
             <div
               className={
                 hamburgerIsOpen
-                  ? "overflow-hidden transition-all max-h-screen"
-                  : "overflow-hidden transition-all max-h-0"
+                  ? "max-h-screen overflow-hidden transition-all"
+                  : "max-h-0 overflow-hidden transition-all"
               }
             >
-              <ol className="py-4 mt-2 text-lg font-medium text-center max-h-[80vh] overflow-scroll ">
+              <ol className="mt-2 max-h-[80vh] overflow-scroll py-4 text-center text-lg font-medium ">
                 <XyzTransitionGroup
                   className="item-group flex flex-col gap-4"
                   xyz="duration-2  fade stagger-0.5 left-2"
@@ -299,7 +299,7 @@ function Nav({ config }: any) {
         <XyzTransition xyz="fade duration-2">
           {hamburgerIsOpen && (
             <div
-              className="fixed top-0 left-0 h-screen w-full bg-opacity-50 backdrop-blur bg-slate-300 z-[-1]"
+              className="fixed left-0 top-0 z-[-1] h-screen w-full bg-slate-300 bg-opacity-50 backdrop-blur"
               onClick={() => {
                 setHamburgerIsOpen(false);
               }}
@@ -309,12 +309,12 @@ function Nav({ config }: any) {
           )}
         </XyzTransition>
       </div>
-      <div className="hidden lg:block bg-slate-100 bg-opacity-90 backdrop-blur shadow-md fixed w-full z-40">
-        <div className="bg-slate-100 w-full">
+      <div className="sticky top-0 z-40 hidden w-full bg-slate-100 bg-opacity-90 shadow-md backdrop-blur lg:block">
+        <div className="w-full bg-slate-100">
           <div className="mx-auto max-w-7xl p-4">
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               {leftSide}
-              <ol className="font-medium text-lg flex gap-8">
+              <ol className="flex gap-8 text-lg font-medium">
                 {nav.map((item: any) => (
                   <li key={item}>{item}</li>
                 ))}
