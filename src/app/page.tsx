@@ -24,51 +24,24 @@ import unDrawFaq from "../img/undraw_faq_re_31cw.svg";
 
 import ModalForm from "@/components/ModalForm";
 
-interface TableUtilProps {
-  text: string;
-}
-function TableYes({ text }: TableUtilProps) {
+function Step({
+  number,
+  title,
+  body,
+}: {
+  number: number;
+  title: string;
+  body: any;
+}) {
   return (
-    <NextUIProvider>
-      <div className="flex items-center gap-2">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={3}
-          stroke="green"
-          className="h-6 w-6 shrink-0"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M4.5 12.75l6 6 9-13.5"
-          />
-        </svg>
-        {text}
+    <div className="rounded-2xl border-slate-200 p-3 shadow transition-all">
+      <div className="flex items-center gap-3">
+        <div className="flex h-12 w-12 flex-grow-0 items-center justify-center rounded-xl bg-slate-100 font-serif text-lg font-semibold text-primary">
+          {number}
+        </div>
+        <h6 className="font-serif text-xl font-semibold">{title}</h6>
       </div>
-    </NextUIProvider>
-  );
-}
-
-function TableNo({ text }: TableUtilProps) {
-  return (
-    <div className="flex items-center gap-2">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth={3}
-        stroke="red"
-        className="h-6 w-6 shrink-0"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M6 18L18 6M6 6l12 12"
-        />
-      </svg>
-      {text}
+      <div className="mt-2 p-1 leading-6 tracking-wide opacity-75">{body}</div>
     </div>
   );
 }
@@ -76,387 +49,92 @@ function TableNo({ text }: TableUtilProps) {
 export default function Home() {
   return (
     <>
-      <Nav config={menueItems}></Nav>
-      <div className="w-full" id="content">
-        <div className="container relative z-10 mx-auto h-[40rem] p-4 max-[350px]:scale-90">
-          <div className="flex h-full flex-col items-start justify-center lg:w-3/5">
-            <motion.h1
-              className=" relative z-30 font-serif text-[3rem] font-bold sm:text-[4rem]"
-              initial={{ y: "100px", opacity: "0%" }}
-              animate={{ y: "0px", opacity: "100%" }}
-              transition={{ type: "spring", stiffness: 80, delay: 0 }}
-            >
-              Ett bättre sätt att laga dagen. Välj Relining
-            </motion.h1>
-            <motion.h2
-              className="relative z-20 bg-white bg-opacity-50 text-lg sm:text-[1.5rem]"
-              initial={{ y: "100px", opacity: "0%" }}
-              animate={{ y: "0px", opacity: "100%" }}
-              transition={{ type: "spring", stiffness: 80, delay: 0.2 }}
-            >
-              Relining är en kostnadseffektiv teknik för att reparera skadade
-              rör utan grävning genom att infoga en ny lining inuti det
-              befintliga röret. Detta förstärker röret, täpper till läckor och
-              är miljövänligare än traditionella utbyten.
-            </motion.h2>
-            <div className="relative z-20 mt-5 flex gap-2">
-              <motion.div
-                initial={{ y: "10px", opacity: "0%" }}
-                animate={{ y: "0px", opacity: "100%" }}
-                transition={{ type: "spring", stiffness: 80, delay: 0.4 }}
-              >
-                <Button
-                  className="hover:scale-105"
-                  color="primary"
-                  size="lg"
-                  variant="faded"
-                  radius="full"
-                  onClick={() => {
-                    window.scrollBy({ top: 500, behavior: "smooth" });
-                  }}
-                >
-                  Läs mer
-                </Button>
-              </motion.div>
-              <motion.div
-                initial={{ y: "10px", opacity: "0%" }}
-                animate={{ y: "0px", opacity: "100%" }}
-                transition={{ type: "spring", stiffness: 80, delay: 0.45 }}
-              >
-                <ModalForm
-                  key="right-button"
-                  className="hover:scale-105"
-                  color="primary"
-                  size="lg"
-                  radius="full"
-                  variant="shadow"
-                >
-                  Kontaka oss
-                </ModalForm>
-              </motion.div>
-            </div>
-            <div className="absolute bottom-0 left-0 z-10 flex w-full justify-center p-8">
-              <svg
-                onClick={() => {
-                  window.scrollBy({ top: 500, behavior: "smooth" });
-                }}
-                className="h-8 w-8 animate-bounce cursor-pointer"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5"
-                />
-              </svg>
-              <div className="absolute bottom-0 right-0 -translate-x-1/3">
-                <Image height={"350"} src={unDrawMain} alt=""></Image>
-              </div>
-            </div>
-          </div>
+      <div className="mx-auto flex max-w-5xl items-center px-8 pb-16 pt-20 font-serif text-5xl font-black tracking-tight">
+        <h1>Om Oss</h1>
+      </div>
+      <div className="bg-slate-800 leading-8 tracking-wide text-white">
+        <div className="mx-auto max-w-5xl px-8 pb-20 pt-16 ">
+          Vi är branschexperter inom avloppsrenovering och har specialiserat oss
+          på relining, den moderna och kostnadseffektiva metoden för att förnya
+          ditt avloppssystem. Med flera års gedigen erfarenhet i ryggen har vi
+          utvecklat en process som är tillförlitlig och effektiv. Men vad som
+          verkligen sätter oss isär är vår orubbliga strävan efter kvalitet och
+          trygghet. Vi är inte som andra. Vi är ditt bästa val för att garantera
+          högsta standard i branschen. Vad händer om du inte väljer oss? Risken
+          är att du oavsiktligt väljer ett företag som inte kan leva upp till
+          dina förväntningar.
         </div>
-        <div className="relative z-10 bg-slate-800 shadow-xl">
-          <div className="container mx-auto px-4 py-20 text-white">
-            <div className="flex w-full flex-wrap gap-4">
-              <div className="flex-1">
-                <h3 className="font-serif text-[3rem] font-bold">
-                  <AnimateOnScroll direction="left">
-                    Förnya dina rör utan störningar
-                  </AnimateOnScroll>
-                </h3>
-                <h4 className="text-[1.5rem]">
-                  <AnimateOnScroll direction="left">
-                    Spara både tid och pengar genom att investera i en hållbar
-                    lösning.
-                  </AnimateOnScroll>
-                </h4>
-              </div>
-              <div className=" min-w-[14rem]" style={{ flex: "1 1 20%" }}>
-                <AnimateOnScroll direction="bottom">
-                  Relining är en innovativ teknik för att reparera skadade rör
-                  utan att behöva byta ut dem helt. Istället för att gräva upp
-                  och byta ut gamla rör, införs en ny, hållbar lining inuti det
-                  befintliga röret, vilket skapar en slät, tät yta. Den stora
-                  fördelen? Mindre störningar. Ingen trädgård som vänds upp och
-                  ned, och oftast är processen snabbare och mer kostnadseffektiv
-                  än traditionella metoder. Relining erbjuder också en hållbar
-                  lösning med beläggningar som kan hålla i flera decennier.{" "}
-                  <br /> <br /> För fastighetsägare kan detta innebära
-                  besparingar på lång sikt genom att undvika framtida skador och
-                  underhåll. Med tanke på miljövänligheten,
-                  kostnadsbesparingarna och den minimerade störningen, bör
-                  relining vara på din radar nästa gång dina rör behöver omsorg.{" "}
-                  <br />
-                </AnimateOnScroll>
-              </div>
-            </div>
-          </div>
+      </div>
+      <div className="mx-auto flex max-w-5xl items-center px-8 pb-16 pt-20 font-serif text-5xl font-black tracking-tight">
+        <h2>Varför Relining?</h2>
+      </div>
+      <div className="bg-slate-800 leading-8 tracking-wide text-white">
+        <div className="mx-auto max-w-5xl px-8 pb-20 pt-16 ">
+          Traditionella stambyten kan vara tidskrävande, dyra och medföra
+          omfattande renoveringar och störningar. Vi har medvetet valt att inte
+          erbjuda denna föråldrade metod. I stället har vi satsat på
+          relineingstekniken, som är bekväm, effektiv och hållbar. Med våra
+          noggrant utvalda samarbetspartners är vi stolta över att kunna erbjuda
+          en smidig och bekymmersfri lösning för våra kunder.
         </div>
-        <div className="container relative z-10 mx-auto px-4 py-20">
-          <div className="absolute top-0 z-0 translate-y-20 -scale-x-[1]">
-            <Image height={"280"} src={unDrawCompare} alt=""></Image>
-          </div>
-          <h3 className="relative z-10 mx-auto rounded-xl bg-white bg-opacity-50 text-center font-serif text-[3rem] font-bold">
-            <AnimateOnScroll direction={"bottom"}>
-              Relinig vs Stambyte
-            </AnimateOnScroll>
-          </h3>
-          <div className="relative z-10 mx-auto max-w-3xl">
-            <div className="overflow-x-auto overflow-y-hidden">
-              <AnimateOnScroll direction={"bottom"}>
-                <table className="table mt-8 bg-white bg-opacity-50">
-                  {/* head */}
-                  <thead>
-                    <tr>
-                      <th>Parameter</th>
-                      <th>Relining</th>
-                      <th>Stambyte</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Livslängd</td>
-                      <td>
-                        <TableYes text={"Upp till 50 år"}></TableYes>
-                      </td>
-                      <td>
-                        <TableYes text={"Ca 50"}></TableYes>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>Kostnad</td>
-                      <td>
-                        <TableYes text={"Oftast billigare"}></TableYes>
-                      </td>
-                      <td>
-                        <TableNo text={"Oftast dyrare"}></TableNo>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>Installationstid</td>
-                      <td>
-                        <TableYes text={"Snabbt, några dagar"}></TableYes>
-                      </td>
-                      <td>
-                        <TableNo text={"Kan ta flera månader"}></TableNo>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>Störningsgrad</td>
-                      <td>
-                        <TableYes text={"Minimal; inget rivande"}></TableYes>
-                      </td>
-                      <td>
-                        <TableNo
-                          text={"Större ingrepp; omfattande byggjobb"}
-                        ></TableNo>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>Flexibilitet</td>
-                      <td>
-                        <TableYes
-                          text={"Skräddarsys lätt för olika system"}
-                        ></TableYes>
-                      </td>
-                      <td>
-                        <TableNo
-                          text={"Mer rigid, kräver omfattande planering"}
-                        ></TableNo>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>Underhåll</td>
-                      <td>
-                        <TableYes text={"Lågt underhållsbehov"}></TableYes>
-                      </td>
-                      <td>
-                        <TableNo
-                          text={"Kräver regelbundet underhåll"}
-                        ></TableNo>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>Energibesparing</td>
-                      <td>
-                        <TableYes
-                          text={"Potentiell energibesparing"}
-                        ></TableYes>
-                      </td>
-                      <td>
-                        <TableNo
-                          text={"Inte alltid energibesparande"}
-                        ></TableNo>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>Säkerhet</td>
-                      <td>
-                        <TableYes text={"Minimerar risk för läckor"}></TableYes>
-                      </td>
-                      <td>
-                        <TableNo
-                          text={"Risk för läckor under installation"}
-                        ></TableNo>
-                      </td>
-                    </tr>
-
-                    <tr>
-                      <td>Estetik</td>
-                      <td>
-                        <TableYes text={"Bevarar befintlig estetik"}></TableYes>
-                      </td>
-                      <td>
-                        <TableNo
-                          text={"Kan kräva ytterligare renoveringar"}
-                        ></TableNo>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </AnimateOnScroll>
-            </div>
-          </div>
+      </div>
+      <div className="mx-auto flex max-w-7xl items-center px-8 pb-8 pt-16 font-serif text-5xl font-black tracking-tight">
+        <h3>Hur Det Fungerar</h3>
+      </div>
+      <div className="mx-auto max-w-7xl px-8 py-5 leading-8 tracking-wide">
+        <div className="rounded-2xl bg-slate-50 p-10 shadow">
+          Vår smidiga reliningsprocess är utformad för att göra
+          avloppsrenovering enkel och bekväm, både för dig som kund och för vårt
+          erfarna team av relingstekniker. Här är hur vår smidiga
+          reliningsprocess ser ut:
         </div>
-        <div className="relative z-10 w-screen overflow-hidden bg-slate-800 shadow-xl">
-          <div className="container mx-auto px-4 py-20 text-white">
-            <div className="flex w-full flex-wrap-reverse items-start gap-4">
-              <div style={{ flex: "1 1 20%" }} className="py-8 pr-8">
-                <AnimateOnScroll direction={"bottom"}>
-                  <Accordion
-                    variant="splitted"
-                    selectionMode="multiple"
-                    className=" text-white"
-                  >
-                    <AccordionItem
-                      key="1"
-                      aria-label="Hur länge varar ett relinat rör?"
-                      title="Hur länge varar ett relinat rör?"
-                      className="text-black"
-                    >
-                      <div className="pb-2">
-                        Ett korrekt relinat rör kan hålla i 50 år eller längre
-                        beroende på material och arbetsförhållanden.
-                      </div>
-                    </AccordionItem>
-                    <AccordionItem
-                      key="2"
-                      aria-label="Är relining säkert för dricksvattenrör?"
-                      title="Är relining säkert för dricksvattenrör?"
-                      className="text-black"
-                    >
-                      <div className="pb-2">
-                        Ja, de material som används i relining-processen är
-                        godkända och säkra för dricksvatten.
-                      </div>
-                    </AccordionItem>
-                    <AccordionItem
-                      key="3"
-                      aria-label="Hur lång tid tar en relining-process?"
-                      title="Hur lång tid tar en relining-process?"
-                      className="text-black"
-                    >
-                      <div className="pb-2">
-                        Processens varaktighet beror på rörets längd och skick,
-                        men i de flesta fall kan relining slutföras på en dag.
-                      </div>
-                    </AccordionItem>
-                    <AccordionItem
-                      key="4"
-                      aria-label="Kan alla rör relinas?"
-                      title="Kan alla rör relinas?"
-                      className="text-black"
-                    >
-                      <div className="pb-2">
-                        Medan många rör kan relinas, finns det vissa
-                        förutsättningar där relining inte är lämpligt. En
-                        professionell bedömning rekommenderas för att avgöra om
-                        dina rör är lämpliga för processen.
-                      </div>
-                    </AccordionItem>
-                    <AccordionItem
-                      key="5"
-                      aria-label="Hur vet jag om mina rör behöver relining?"
-                      title="Hur vet jag om mina rör behöver relining?"
-                      className="text-black"
-                    >
-                      <div className="pb-2">
-                        Tecken som regelbundna blockeringar, läckage eller dålig
-                        avloppslukt kan tyda på att dina rör kan dra nytta av
-                        relining. Det är bäst att konsultera en expert för en
-                        noggrann bedömning.
-                      </div>
-                    </AccordionItem>
-                    <AccordionItem
-                      key="6"
-                      aria-label="Vad kostar relining jämfört med traditionella rörreparationer?"
-                      title="Vad kostar relining jämfört med traditionella rörreparationer?"
-                      className="text-black"
-                    >
-                      <div className="pb-2">
-                        Även om kostnaderna varierar beroende på projektets
-                        omfattning och komplexitet, tenderar relining ofta att
-                        vara mer kostnadseffektivt på grund av minskade
-                        arbetskostnader och mindre grävarbete.
-                      </div>
-                    </AccordionItem>
-                  </Accordion>
-                </AnimateOnScroll>
-              </div>
-              <div
-                className="relative mb-auto h-fit"
-                style={{ flex: "1 1 0%" }}
-              >
-                <h3 className="relative z-10 font-serif text-[3rem] font-bold">
-                  <AnimateOnScroll direction={"right"}>
-                    Vanliga frågor
-                  </AnimateOnScroll>
-                </h3>
-                <h4 className="relative z-10 text-[1.5rem]">
-                  <AnimateOnScroll direction={"right"}>
-                    Frågor och svar: Allt på ett ställe.
-                  </AnimateOnScroll>
-                </h4>
-                <div className="absolute right-0 top-0 z-0 -translate-y-full md:bottom-0 md:translate-y-full">
-                  <Image height={"200"} src={unDrawFaq} alt=""></Image>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="container relative z-10 mx-auto px-4 py-20">
-          <AnimateOnScroll direction={"bottom"}>
-            <h3 className="text-center font-serif text-[2.5rem] font-bold sm:text-[3rem]">
-              Låter det interessant?
-            </h3>
-            <div className="mt-8 flex items-center justify-center gap-2">
-              <ModalForm
-                key="right-button"
-                className="hover:scale-105"
-                color="primary"
-                size="lg"
-                radius="full"
-                variant="shadow"
-              >
-                Boka relining
-              </ModalForm>
-            </div>
-            <p className="mt-4 text-center">
-              (bara 4 lediga tider kvar denna månad)
-            </p>
-          </AnimateOnScroll>
-        </div>
+      </div>
+
+      {/* ___________ */}
+
+      <div className="mx-auto grid max-w-7xl grid-flow-row grid-cols-1 gap-8 px-8 pb-20 pt-5 sm:grid-cols-2 lg:grid-cols-3">
+        <Step
+          number={1}
+          title="Konsultation och Inspektion"
+          body={
+            "Allt börjar med en enkel konsultation. Du kontaktar oss och bokar en tid som passar dig. Vårt team, tillsammans med våra pålitliga samarbetspartners, kommer till din fastighet för att inspektera ditt avloppssystem och bedöma behovet av relining. Vi tar oss tid att förstå dina specifika problem och behov, och vi besvarar gärna dina frågor."
+          }
+        />
+        <Step
+          number={2}
+          title="Offert och Planering"
+          body={
+            "Efter noggrann inspektion tar vi fram en skräddarsydd offert baserad på det arbete som behöver utföras. Vi förklarar i klara termer vad som behöver göras och vilka metoder som kommer att användas. Vår transparenta prissättning gör det enkelt för dig att förstå kostnaderna. Om du godkänner offerten, planerar vi arbetet."
+          }
+        />
+        <Step
+          number={3}
+          title="Arbetets Start"
+          body={
+            "När planeringen är klar, bokar vi in ett tidsschema som passar dig bäst. Vårt erfarna team och våra partners anländer på den utsatta tiden och börjar arbetet. Vår process är utformad för minimal störning, vilket gör det möjligt för dig att fortsätta med din vardag utan avbrott."
+          }
+        />
+        <Step
+          number={4}
+          title="Relining"
+          body={
+            "Våra kompetenta tekniker och partners använder avancerad härdplastteknik för att förnya ditt avloppssystem. Vi ser till att allt går smidigt och effektivt, utan att behöva göra ingrepp i dina väggar eller golv. Med minimala störningar i din fastighet är vårt mål att slutföra arbetet så snabbt som möjligt."
+          }
+        />
+        <Step
+          number={5}
+          title="Slutlig Inspektion"
+          body={
+            "Efter att reliningen är klar, genomför vi en noggrann slutlig inspektion för att säkerställa att allt är i toppskick. Vi testar avloppssystemet för att garantera att det fungerar felfritt. När du är nöjd med resultatet, godkänner du arbetet."
+          }
+        />
+        <Step
+          number={6}
+          title="Avslutning och Uppföljning"
+          body={
+            "Vi avslutar processen genom att förse dig med all dokumentation du behöver och ger dig råd om hur du kan underhålla ditt förnyade avloppssystem. Vi finns alltid tillgängliga för eventuella frågor eller uppföljning."
+          }
+        />
       </div>
     </>
   );
