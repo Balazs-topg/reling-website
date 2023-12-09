@@ -7,7 +7,7 @@ function Footer() {
         <div className="mx-auto flex max-w-7xl gap-12">
           <div>
             <h6 className="mb-2 font-serif text-xl font-medium">Kontak Info</h6>
-            <table>
+            <table className="border-separate border-spacing-y-1">
               <tbody>
                 <tr>
                   <td>Email: </td>

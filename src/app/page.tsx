@@ -23,6 +23,7 @@ import unDrawCompare from "../img/undraw_split_testing_l1uw.svg";
 import unDrawFaq from "../img/undraw_faq_re_31cw.svg";
 
 import ModalForm from "@/components/ModalForm";
+import { RippleSurface } from "react-ripples-continued";
 
 function Step({
   number,
@@ -34,7 +35,7 @@ function Step({
   body: any;
 }) {
   return (
-    <div className="rounded-2xl border-slate-200 p-3 shadow transition-all">
+    <div className="rounded-2xl border-slate-200 p-5 shadow transition-all">
       <div className="flex items-center gap-3">
         <div className="flex h-12 w-12 flex-grow-0 items-center justify-center rounded-xl bg-slate-100 font-serif text-lg font-semibold text-primary">
           {number}
