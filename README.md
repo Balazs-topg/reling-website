@@ -1,4 +1,4 @@
-# Website for relining
+# Website for a relining business
 
 ## Stack
 - Next.js
